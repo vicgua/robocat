@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Robocat</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabEquips">
+       <attribute name="title">
+        <string>&amp;Equips</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QTableWidget" name="taulaEquips">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <row>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>Nom</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Punts</string>
+           </property>
+          </column>
+          <item row="0" column="0">
+           <property name="text">
+            <string>AAA</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>BBB</string>
+           </property>
+          </item>
+          <item row="1" column="1">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="layoutEquips">
+          <item>
+           <widget class="QPushButton" name="afegirEquips">
+            <property name="text">
+             <string>&amp;Afegir</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="editarEquips">
+            <property name="text">
+             <string>&amp;Editar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="eliminarEquips">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabPartides">
+       <attribute name="title">
+        <string>&amp;Partides</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QTableWidget" name="taulaPartides">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Ronda</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Equip 1</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Puntuació equip 1</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Puntuació equip 2</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Equip 2</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="layoutPartides">
+          <item>
+           <widget class="QPushButton" name="afegirPartides">
+            <property name="text">
+             <string>&amp;Afegir</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="editarPartides">
+            <property name="text">
+             <string>&amp;Editar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="eliminarPartides">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabCrono">
+       <attribute name="title">
+        <string>&amp;Cronòmetre</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="ChronoLabel" name="cronometre">
+          <property name="font">
+           <font>
+            <pointsize>75</pointsize>
+           </font>
+          </property>
+          <property name="autoFillBackground">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>0:00</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="layoutCrono">
+          <item>
+           <widget class="QPushButton" name="playCrono">
+            <property name="text">
+             <string>P&amp;lay</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="stopCrono">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>&amp;Stop</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="resetCrono">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>&amp;Reset</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="estatBdLabel">
+        <property name="text">
+         <string>Estat BD:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="estatBd">
+        <property name="text">
+         <string>No connectat</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArxiu">
+    <property name="title">
+     <string>Ar&amp;xiu</string>
+    </property>
+    <addaction name="actionConnectar_a_BD"/>
+    <addaction name="actionTancar_connexi"/>
+    <addaction name="separator"/>
+    <addaction name="actionInicialitzar_BD"/>
+    <addaction name="separator"/>
+    <addaction name="actionSortir"/>
+   </widget>
+   <widget class="QMenu" name="menuPantalles">
+    <property name="title">
+     <string>Pa&amp;ntalles</string>
+    </property>
+    <addaction name="actionPuntuaci"/>
+    <addaction name="actionCron_metre"/>
+   </widget>
+   <addaction name="menuArxiu"/>
+   <addaction name="menuPantalles"/>
+  </widget>
+  <action name="actionSortir">
+   <property name="text">
+    <string>&amp;Sortir</string>
+   </property>
+  </action>
+  <action name="actionConnectar_a_BD">
+   <property name="text">
+    <string>&amp;Connectar a BD</string>
+   </property>
+  </action>
+  <action name="actionTancar_connexi">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Tancar connexió</string>
+   </property>
+  </action>
+  <action name="actionPuntuaci">
+   <property name="text">
+    <string>&amp;Puntuació</string>
+   </property>
+  </action>
+  <action name="actionCron_metre">
+   <property name="text">
+    <string>&amp;Cronòmetre</string>
+   </property>
+  </action>
+  <action name="actionInicialitzar_BD">
+   <property name="text">
+    <string>Inicialitzar BD</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ChronoLabel</class>
+   <extends>QLabel</extends>
+   <header>chronolabel.h</header>
+   <slots>
+    <slot>updateTicks(int)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionSortir</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionConnectar_a_BD</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openConnectDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>chronoTicked(int)</signal>
+   <receiver>cronometre</receiver>
+   <slot>updateTicks(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>120</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>playCrono</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>startChrono()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>94</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stopCrono</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>stopChrono()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>resetCrono</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>resetChrono()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>344</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>351</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>chronoTicked(int)</signal>
+  <slot>openConnectDialog()</slot>
+  <slot>startChrono()</slot>
+  <slot>stopChrono()</slot>
+  <slot>resetChrono()</slot>
+ </slots>
+</ui>
