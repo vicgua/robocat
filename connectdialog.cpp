@@ -20,13 +20,13 @@ ConnectDialog::~ConnectDialog()
 void ConnectDialog::on_dbmsInp_currentIndexChanged(const QString &newDbms)
 {
     if (newDbms == "PostgreSQL") {
-        cDbms = "QPSQL";
+        cDriver = "QPSQL";
         hasHost = true;
         hasDatabase = true;
         hasUsername = true;
         hasPassword = true;
     } else if (newDbms == "SQLite") {
-        cDbms = "QSQLITE";
+        cDriver = "QSQLITE";
         hasHost = false;
         hasDatabase = true;
         hasUsername = false;
@@ -42,10 +42,6 @@ void ConnectDialog::on_buttonBox_accepted()
 {
     QStringList errors;
     if (!sanityCheck(errors)) {
-        QDebug(QtWarningMsg) << "Failed sanity check:";
-        foreach (const auto &err, errors) {
-            QDebug(QtWarningMsg) << err;
-        }
         QMessageBox errorDialog(this);
         errorDialog.setIcon(QMessageBox::Warning);
         if (errors.length() == 1) {
@@ -58,8 +54,14 @@ void ConnectDialog::on_buttonBox_accepted()
         errorDialog.exec();
         return;
     }
+    ConnectionInfo ci;
+    ci.dbDriver = cDriver;
+    ci.hostname = ui->hostInp->text();
+    ci.database = ui->dbInp->text();
+    ci.username = ui->userInp->text();
+    ci.password = ui->passwordInp->text();
     close();
-    emit accepted();
+    emit databaseSet(ci);
 }
 
 void ConnectDialog::updateFields()

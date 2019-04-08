@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTimer>
 #include "connectdialog.h"
+#include "data_objects/connectioninfo.h"
+#include "robodatabase.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,11 +35,12 @@ private:
     Ui::MainWindow *ui;
     ConnectDialog *connectDialog;
     QTimer* chrono;
+    RoboDatabase *db;
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
 
-    constexpr static int maxTempsCrono = 20;//2 * 60; // 2 minuts
+    constexpr static int maxTempsCrono = 2 * 60; // 2 minuts
     constexpr static int warnTempsCrono = 15; // 15 segons
 
     enum EstatBd {
@@ -47,11 +50,15 @@ private:
     };
 
     void updateChronoButtons(bool running);
+    void updateConnectat(bool connectat);
 
 private slots:
     void canviEstatBd(EstatBd estat);
-    void openConnectDialog();
     void chronoTick();
+    void canviBd(const ConnectionInfo &ci);
+    void actualitzarDades();
+    void gestionarFiConnexio(bool exitosa);
+    void errorSql(const QSqlError &error);
 
 };
 

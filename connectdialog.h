@@ -2,6 +2,7 @@
 #define CONNECTDIALOG_HH
 
 #include <QDialog>
+#include "data_objects/connectioninfo.h"
 
 namespace Ui {
 class ConnectDialog;
@@ -15,13 +16,16 @@ public:
     explicit ConnectDialog(QWidget *parent = 0);
     ~ConnectDialog();
 
+signals:
+    void databaseSet(const ConnectionInfo &ci);
+
 private slots:
     void on_dbmsInp_currentIndexChanged(const QString &newDbms);
     void on_buttonBox_accepted();
 
 private:
     Ui::ConnectDialog *ui;
-    QString cDbms;
+    QString cDriver;
     bool hasHost;
     bool hasDatabase;
     bool hasUsername;

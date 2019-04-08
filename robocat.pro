@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,12 +27,17 @@ SOURCES += \
     connectdialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    chronolabel.cpp
+    chronolabel.cpp \
+    robodatabase.cpp
 
 HEADERS += \
     connectdialog.h \
     mainwindow.h \
-    chronolabel.h
+    chronolabel.h \
+    robodatabase.h \
+    data_objects/equip.h \
+    data_objects/estadistiquesequip.h \
+    data_objects/connectioninfo.h
 
 FORMS += \
         mainwindow.ui \

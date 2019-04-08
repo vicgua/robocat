@@ -274,7 +274,7 @@
      <string>Ar&amp;xiu</string>
     </property>
     <addaction name="actionConnectar_a_BD"/>
-    <addaction name="actionTancar_connexi"/>
+    <addaction name="actionTancar_connexio"/>
     <addaction name="separator"/>
     <addaction name="actionInicialitzar_BD"/>
     <addaction name="separator"/>
@@ -300,7 +300,7 @@
     <string>&amp;Connectar a BD</string>
    </property>
   </action>
-  <action name="actionTancar_connexi">
+  <action name="actionTancar_connexio">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -344,22 +344,6 @@
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionConnectar_a_BD</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>openConnectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -438,7 +422,6 @@
  </connections>
  <slots>
   <signal>chronoTicked(int)</signal>
-  <slot>openConnectDialog()</slot>
   <slot>startChrono()</slot>
   <slot>stopChrono()</slot>
   <slot>resetChrono()</slot>

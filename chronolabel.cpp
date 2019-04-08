@@ -1,7 +1,5 @@
 #include "chronolabel.h"
 
-#include <QDebug>
-
 ChronoLabel::ChronoLabel(QWidget *parent) :
     QLabel(parent),
     warningTime(0)
@@ -11,7 +9,6 @@ ChronoLabel::ChronoLabel(QWidget *parent) :
 
 void ChronoLabel::updateTicks(int temps)
 {
-    qDebug() << "Ticks updated: " << temps;
     int mins = temps / 60;
     int segs = temps % 60;
     QString text = QString("%1:%2").arg(QString::number(mins)).arg(QString::number(segs), 2, '0');
