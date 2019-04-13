@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
+#include <QColor>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(connectDialog, &ConnectDialog::databaseSet, this, &MainWindow::canviBd);
     connect(db, &RoboDatabase::connexioFinalitzada, this, &MainWindow::gestionarFiConnexio);
     connect(db, &RoboDatabase::desconnectada, this, [=](){ canviEstatBd(NO_CONNECTADA); });
+    connect(db, &RoboDatabase::inicialitzada, this, [=](){ gestionarFiConnexio(true); });
     connect(db, &RoboDatabase::errorSql, this, &MainWindow::errorSql);
     canviEstatBd(NO_CONNECTADA);
 }
@@ -58,12 +61,12 @@ void MainWindow::updateChronoButtons(bool running)
     ui->resetCrono->setEnabled(!running && tempsCrono < maxTempsCrono);
 }
 
-void MainWindow::updateConnectat(bool connectat)
+void MainWindow::updateConnectat(bool connectat, bool inicialitzada)
 {
-    ui->tabWidget->setEnabled(connectat);
+    ui->tabWidget->setEnabled(connectat && inicialitzada);
     ui->actionTancar_connexio->setEnabled(connectat);
     ui->actionInicialitzar_BD->setEnabled(connectat);
-    ui->menuPantalles->setEnabled(connectat);
+    //ui->menuPantalles->setEnabled(connectat && inicialitzada); // DEBUG
 }
 
 void MainWindow::canviEstatBd(EstatBd estat)
@@ -71,10 +74,16 @@ void MainWindow::canviEstatBd(EstatBd estat)
     QPalette palette = ui->estatBd->palette();
     QString text = ui->estatBd->text();
     switch (estat) {
+    case CONNECTANT:
+        palette.setColor(QPalette::WindowText, Qt::black);
+        text = "Connectant";
+        updateConnectat(false);
+        ui->centralWidget->setCursor(Qt::WaitCursor);
+        break;
     case CONNECTADA:
         palette.setColor(QPalette::WindowText, Qt::darkGreen);
         text = "Connectada";
-        updateConnectat(true);
+        updateConnectat(true, true);
         ui->centralWidget->setCursor(Qt::ArrowCursor);
         break;
     case NO_CONNECTADA:
@@ -83,11 +92,11 @@ void MainWindow::canviEstatBd(EstatBd estat)
         updateConnectat(false);
         ui->centralWidget->setCursor(Qt::ArrowCursor);
         break;
-    case CONNECTANT:
-        palette.setColor(QPalette::WindowText, Qt::black);
-        text = "Connectant";
-        updateConnectat(false);
-        ui->centralWidget->setCursor(Qt::WaitCursor);
+    case NO_INICIALITZADA:
+        palette.setColor(QPalette::WindowText, QColor("orange"));
+        text = "No inicialitzada";
+        updateConnectat(true, false);
+        ui->centralWidget->setCursor(Qt::ArrowCursor);
         break;
     }
     ui->estatBd->setPalette(palette);
@@ -119,8 +128,12 @@ void MainWindow::actualitzarDades()
 void MainWindow::gestionarFiConnexio(bool exitosa)
 {
     if (exitosa) {
-        canviEstatBd(CONNECTADA);
-        actualitzarDades();
+        if (db->estaInicialitzada()) {
+            canviEstatBd(CONNECTADA);
+            actualitzarDades();
+        } else {
+            canviEstatBd(NO_INICIALITZADA);
+        }
     } else {
         canviEstatBd(NO_CONNECTADA);
     }
@@ -134,4 +147,22 @@ void MainWindow::errorSql(const QSqlError &error)
     msgError += error.text();
     errorDialog.setText(msgError);
     errorDialog.exec();
+}
+
+void MainWindow::obreDialegInicialitzacio()
+{
+    QMessageBox preguntaDialog(this);
+    preguntaDialog.setIcon(QMessageBox::Warning);
+    preguntaDialog.setText("ATENCIÓ: Inicialitzar la base de dades farà"
+                           " que es perdin les dades preexistents. Continuar?");
+    preguntaDialog.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    switch (preguntaDialog.exec()) {
+    case QMessageBox::Yes:
+        db->inicialitzar();
+        return;
+    case QMessageBox::No:
+        return;
+    default:
+        Q_UNREACHABLE();
+    }
 }

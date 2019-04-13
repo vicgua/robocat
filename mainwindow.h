@@ -23,6 +23,7 @@ public slots:
     void startChrono();
     void stopChrono();
     void resetChrono();
+    void actualitzarDades();
 
 signals:
     void chronoStarted();
@@ -44,21 +45,22 @@ private:
     constexpr static int warnTempsCrono = 15; // 15 segons
 
     enum EstatBd {
+        CONNECTANT,
         CONNECTADA,
         NO_CONNECTADA,
-        CONNECTANT
+        NO_INICIALITZADA
     };
 
     void updateChronoButtons(bool running);
-    void updateConnectat(bool connectat);
+    void updateConnectat(bool connectat, bool inicialitzada = true);
 
 private slots:
     void canviEstatBd(EstatBd estat);
     void chronoTick();
     void canviBd(const ConnectionInfo &ci);
-    void actualitzarDades();
     void gestionarFiConnexio(bool exitosa);
     void errorSql(const QSqlError &error);
+    void obreDialegInicialitzacio();
 
 };
 

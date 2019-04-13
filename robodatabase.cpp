@@ -4,7 +4,6 @@
 #include <QTextStream>
 #include <QSqlQuery>
 #include <QSqlDatabase>
-#include <QDebug>
 
 void RoboDatabase::setup(const ConnectionInfo &ci)
 {
@@ -24,7 +23,7 @@ RoboDatabase::RoboDatabase() : QObject() {
 
 RoboDatabase::RoboDatabase(const RoboDatabase &other) : QObject() {
     connected = other.connected;
-    dbType = other.dbType;
+    dbDriver = other.dbDriver;
 }
 
 QMap<Equip, EstadistiquesEquip> RoboDatabase::equips()
@@ -105,18 +104,25 @@ void RoboDatabase::eliminarEquip(const Equip &equip)
     emit dataChanged();
 }
 
+bool RoboDatabase::estaInicialitzada()
+{
+    QSqlDatabase db = QSqlDatabase::database();
+    QStringList tables = db.tables();
+    return tables.contains("equips") && tables.contains("partides");
+}
+
 void RoboDatabase::inicialitzar()
 {
-    QSqlQuery query;
-    query.exec(sqlInit());
-    if (!query.isActive()) {
-        emit errorSql(query.lastError());
+    QSqlError error;
+    if (!SentenciesSql::execManySql(SentenciesSql::init::initAll(), error)) {
+        emit errorSql(error);
+    } else {
+        emit inicialitzada();
     }
 }
 
 void RoboDatabase::iniciaConnexio()
 {
-    qDebug() << "Iniciant connexió";
     QSqlDatabase db = QSqlDatabase::database();
     if (db.open()) {
         connected = true;
@@ -136,7 +142,7 @@ void RoboDatabase::desconnecta()
     emit desconnectada();
 }
 
-QString RoboDatabase::sqlInit() const
+QString RoboDatabase::sqlInit()
 {
     QFile sqlFile(":/sql_scripts/init.sql");
     if (!sqlFile.open(QFile::ReadOnly | QFile::Text)) {

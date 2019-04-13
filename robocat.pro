@@ -28,7 +28,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     chronolabel.cpp \
-    robodatabase.cpp
+    robodatabase.cpp \
+    sentenciessql.cpp
 
 HEADERS += \
     connectdialog.h \
@@ -37,11 +38,27 @@ HEADERS += \
     robodatabase.h \
     data_objects/equip.h \
     data_objects/estadistiquesequip.h \
-    data_objects/connectioninfo.h
+    data_objects/connectioninfo.h \
+    sentenciessql.h
 
 FORMS += \
         mainwindow.ui \
     connectdialog.ui
 
 RESOURCES += \
-    resources.qrc
+    resources.qrc \
+    sql/sql.qrc
+
+DISTFILES += \
+    sql/init/create/classificacio_equips.sql \
+    sql/init/create/equips.sql \
+    sql/init/create/partides.sql \
+    sql/init/create/punts_partides.sql \
+    sql/init/drop/classificacio_equips.sql \
+    sql/init/drop/equips.sql \
+    sql/init/drop/partides.sql \
+    sql/init/drop/punts_partides.sql \
+    images/icon.png \
+    images/icon_original.png \
+    sql/init/drop/classificacio_rondes.sql \
+    sql/init/create/classificacio_rondes.sql

@@ -1,0 +1,3 @@
+CREATE TABLE equips (
+    nom VARCHAR(80) PRIMARY KEY
+);

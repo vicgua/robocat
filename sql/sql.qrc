@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/sql">
+        <file>init/create/equips.sql</file>
+        <file>init/create/partides.sql</file>
+        <file>init/drop/equips.sql</file>
+        <file>init/drop/partides.sql</file>
+        <file>init/create/punts_partides.sql</file>
+        <file>init/create/classificacio_equips.sql</file>
+        <file>init/drop/punts_partides.sql</file>
+        <file>init/drop/classificacio_equips.sql</file>
+        <file>init/create/classificacio_rondes.sql</file>
+        <file>init/drop/classificacio_rondes.sql</file>
+    </qresource>
+</RCC>
