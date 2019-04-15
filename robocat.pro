@@ -29,7 +29,9 @@ SOURCES += \
     mainwindow.cpp \
     chronolabel.cpp \
     robodatabase.cpp \
-    sentenciessql.cpp
+    sentenciessql.cpp \
+    pantallacrono.cpp \
+    scalingimage.cpp
 
 HEADERS += \
     connectdialog.h \
@@ -39,26 +41,18 @@ HEADERS += \
     data_objects/equip.h \
     data_objects/estadistiquesequip.h \
     data_objects/connectioninfo.h \
-    sentenciessql.h
+    sentenciessql.h \
+    pantallacrono.h \
+    scalingimage.h \
+    constants.h
 
 FORMS += \
         mainwindow.ui \
-    connectdialog.ui
+    connectdialog.ui \
+    pantalles_crono/cronoidle.ui \
+    pantalles_crono/cronoseguents.ui \
+    pantalles_crono/cronoplaying.ui
 
 RESOURCES += \
     resources.qrc \
     sql/sql.qrc
-
-DISTFILES += \
-    sql/init/create/classificacio_equips.sql \
-    sql/init/create/equips.sql \
-    sql/init/create/partides.sql \
-    sql/init/create/punts_partides.sql \
-    sql/init/drop/classificacio_equips.sql \
-    sql/init/drop/equips.sql \
-    sql/init/drop/partides.sql \
-    sql/init/drop/punts_partides.sql \
-    images/icon.png \
-    images/icon_original.png \
-    sql/init/drop/classificacio_rondes.sql \
-    sql/init/create/classificacio_rondes.sql

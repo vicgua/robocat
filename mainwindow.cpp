@@ -9,20 +9,38 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     connectDialog(new ConnectDialog),
+    pantallaCrono(new PantallaCrono),
     chrono(new QTimer(this)),
     db(new RoboDatabase)
 {
     ui->setupUi(this);
-    ui->cronometre->warningTime = warnTempsCrono;
-    resetChrono();
+
     connect(chrono, &QTimer::timeout, this, &MainWindow::chronoTick);
+    connect(this, &MainWindow::chronoTicked, pantallaCrono, &PantallaCrono::chronoTick);
+
+    ui->cronometre->warningTime = constants::WARN_TIME;
+    resetChrono();
+
+    connect(ui->pantallaCronoIdle, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setIdle()));
+    connect(ui->pantallaCronoSeguents, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setSeguents()));
+    connect(ui->pantallaCronoCronometre, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setCrono()));
+    connect(ui->pantallaCronoTaula1, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula1Enabled(bool)));
+    connect(ui->pantallaCronoE1T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula1(QString)));
+    connect(ui->pantallaCronoE1T2, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip2Taula1(QString)));
+    connect(ui->pantallaCronoTaula2, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula2Enabled(bool)));
+    connect(ui->pantallaCronoE2T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula2(QString)));
+    connect(ui->pantallaCronoE2T2, SIGNAL(currentTextChanged(QString)), pantallaCrono, SLOT(setEquip2Taula2(QString)));
+
     connect(ui->actionConnectar_a_BD, SIGNAL(triggered()), connectDialog, SLOT(exec()));
     connect(ui->actionTancar_connexio, SIGNAL(triggered()), db, SLOT(desconnecta()));
+
     connect(connectDialog, &ConnectDialog::databaseSet, this, &MainWindow::canviBd);
+
     connect(db, &RoboDatabase::connexioFinalitzada, this, &MainWindow::gestionarFiConnexio);
     connect(db, &RoboDatabase::desconnectada, this, [=](){ canviEstatBd(NO_CONNECTADA); });
     connect(db, &RoboDatabase::inicialitzada, this, [=](){ gestionarFiConnexio(true); });
     connect(db, &RoboDatabase::errorSql, this, &MainWindow::errorSql);
+
     canviEstatBd(NO_CONNECTADA);
 }
 
@@ -49,24 +67,24 @@ void MainWindow::stopChrono()
 
 void MainWindow::resetChrono()
 {
-    tempsCrono = maxTempsCrono;
+    tempsCrono = constants::MAX_TIME;
     updateChronoButtons(false);
-    emit chronoTicked(maxTempsCrono);
+    emit chronoTicked(constants::MAX_TIME);
 }
 
 void MainWindow::updateChronoButtons(bool running)
 {
     ui->playCrono->setEnabled(!running && tempsCrono > 0);
     ui->stopCrono->setEnabled(running && tempsCrono > 0);
-    ui->resetCrono->setEnabled(!running && tempsCrono < maxTempsCrono);
+    ui->resetCrono->setEnabled(!running && tempsCrono < constants::MAX_TIME);
 }
 
 void MainWindow::updateConnectat(bool connectat, bool inicialitzada)
 {
-    ui->tabWidget->setEnabled(connectat && inicialitzada);
+    ui->tabWidget->setEnabled(true || (connectat && inicialitzada)); // DEBUG
     ui->actionTancar_connexio->setEnabled(connectat);
     ui->actionInicialitzar_BD->setEnabled(connectat);
-    //ui->menuPantalles->setEnabled(connectat && inicialitzada); // DEBUG
+    ui->menuPantalles->setEnabled(true || (connectat && inicialitzada)); // DEBUG
 }
 
 void MainWindow::canviEstatBd(EstatBd estat)
@@ -165,4 +183,9 @@ void MainWindow::obreDialegInicialitzacio()
     default:
         Q_UNREACHABLE();
     }
+}
+
+void MainWindow::obrePantallaCrono()
+{
+    pantallaCrono->show();
 }

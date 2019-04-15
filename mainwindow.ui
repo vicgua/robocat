@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>521</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Robocat</string>
+   <string>RoboCAT</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
@@ -25,7 +25,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabEquips">
        <attribute name="title">
@@ -33,60 +33,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QTableWidget" name="taulaEquips">
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <row>
-           <property name="text">
-            <string>1</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>2</string>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>Nom</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Punts</string>
-           </property>
-          </column>
-          <item row="0" column="0">
-           <property name="text">
-            <string>AAA</string>
-           </property>
-          </item>
-          <item row="0" column="1">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </item>
-          <item row="1" column="0">
-           <property name="text">
-            <string>BBB</string>
-           </property>
-          </item>
-          <item row="1" column="1">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QTableView" name="taulaEquips"/>
         </item>
         <item>
          <layout class="QVBoxLayout" name="layoutEquips">
@@ -121,39 +68,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QTableWidget" name="taulaPartides">
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-           <bool>true</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string>Ronda</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Equip 1</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Puntuació equip 1</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Puntuació equip 2</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Equip 2</string>
-           </property>
-          </column>
-         </widget>
+         <widget class="QTableView" name="taulaPartides"/>
         </item>
         <item>
          <layout class="QVBoxLayout" name="layoutPartides">
@@ -186,7 +101,135 @@
        <attribute name="title">
         <string>&amp;Cronòmetre</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QHBoxLayout" name="estatsPantallaCrono">
+          <item>
+           <widget class="QRadioButton" name="pantallaCronoIdle">
+            <property name="text">
+             <string>Idle</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">estatPantallaCronoBg</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="pantallaCronoSeguents">
+            <property name="text">
+             <string>Següents</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">estatPantallaCronoBg</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="pantallaCronoCronometre">
+            <property name="text">
+             <string>Cronòmetre</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">estatPantallaCronoBg</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="pantallaCronoTaula1Layout">
+          <item>
+           <widget class="QCheckBox" name="pantallaCronoTaula1">
+            <property name="toolTip">
+             <string>Activar taula 1</string>
+            </property>
+            <property name="text">
+             <string>Taula 1</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pantallaCronoE1T1">
+            <property name="toolTip">
+             <string>Equip 1 Taula 1</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pantallaCronoE2T1">
+            <property name="toolTip">
+             <string>Equip 2 Taula 1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="pantallaCronoTaula2Layout">
+          <item>
+           <widget class="QCheckBox" name="pantallaCronoTaula2">
+            <property name="toolTip">
+             <string>Activar taula 2</string>
+            </property>
+            <property name="text">
+             <string>Taula 2</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pantallaCronoE1T2">
+            <property name="toolTip">
+             <string>Equip 1 Taula 2</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pantallaCronoE2T2">
+            <property name="toolTip">
+             <string>Equip 2 Taula 2</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="ChronoLabel" name="cronometre">
           <property name="font">
@@ -198,7 +241,7 @@
            <bool>true</bool>
           </property>
           <property name="text">
-           <string>0:00</string>
+           <string notr="true">0:00</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -252,7 +295,7 @@
       <item row="0" column="1">
        <widget class="QLabel" name="estatBd">
         <property name="text">
-         <string>No connectat</string>
+         <string notr="true">&lt;Placeholder&gt;</string>
         </property>
        </widget>
       </item>
@@ -265,7 +308,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>521</width>
      <height>25</height>
     </rect>
    </property>
@@ -284,8 +327,8 @@
     <property name="title">
      <string>Pa&amp;ntalles</string>
     </property>
-    <addaction name="actionPuntuaci"/>
-    <addaction name="actionCron_metre"/>
+    <addaction name="actionPuntuacio"/>
+    <addaction name="actionCronometre"/>
    </widget>
    <addaction name="menuArxiu"/>
    <addaction name="menuPantalles"/>
@@ -308,12 +351,12 @@
     <string>&amp;Tancar connexió</string>
    </property>
   </action>
-  <action name="actionPuntuaci">
+  <action name="actionPuntuacio">
    <property name="text">
     <string>&amp;Puntuació</string>
    </property>
   </action>
-  <action name="actionCron_metre">
+  <action name="actionCronometre">
    <property name="text">
     <string>&amp;Cronòmetre</string>
    </property>
@@ -367,7 +410,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>290</x>
-     <y>120</y>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -379,7 +422,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>89</x>
-     <y>226</y>
+     <y>319</y>
     </hint>
     <hint type="destinationlabel">
      <x>94</x>
@@ -394,8 +437,8 @@
    <slot>stopChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>200</x>
-     <y>213</y>
+     <x>241</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>223</x>
@@ -410,12 +453,108 @@
    <slot>resetChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>222</y>
+     <x>424</x>
+     <y>315</y>
     </hint>
     <hint type="destinationlabel">
      <x>351</x>
      <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionInicialitzar_BD</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>obreDialegInicialitzacio()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCronometre</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>obrePantallaCrono()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoTaula1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pantallaCronoE1T1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>362</x>
+     <y>123</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoTaula1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pantallaCronoE2T1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>87</x>
+     <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>458</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoTaula2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pantallaCronoE1T2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>152</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoTaula2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pantallaCronoE2T2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>153</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>436</x>
+     <y>154</y>
     </hint>
    </hints>
   </connection>
@@ -425,5 +564,10 @@
   <slot>startChrono()</slot>
   <slot>stopChrono()</slot>
   <slot>resetChrono()</slot>
+  <slot>obreDialegInicialitzacio()</slot>
+  <slot>obrePantallaCrono()</slot>
  </slots>
+ <buttongroups>
+  <buttongroup name="estatPantallaCronoBg"/>
+ </buttongroups>
 </ui>

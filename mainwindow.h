@@ -6,6 +6,8 @@
 #include "connectdialog.h"
 #include "data_objects/connectioninfo.h"
 #include "robodatabase.h"
+#include "pantallacrono.h"
+#include "constants.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,14 +37,12 @@ signals:
 private:
     Ui::MainWindow *ui;
     ConnectDialog *connectDialog;
+    PantallaCrono *pantallaCrono;
     QTimer* chrono;
     RoboDatabase *db;
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
-
-    constexpr static int maxTempsCrono = 2 * 60; // 2 minuts
-    constexpr static int warnTempsCrono = 15; // 15 segons
 
     enum EstatBd {
         CONNECTANT,
@@ -61,6 +61,7 @@ private slots:
     void gestionarFiConnexio(bool exitosa);
     void errorSql(const QSqlError &error);
     void obreDialegInicialitzacio();
+    void obrePantallaCrono();
 
 };
 

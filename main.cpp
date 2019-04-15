@@ -4,6 +4,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setApplicationDisplayName("RoboCAT");
     MainWindow w;
     w.show();
 
