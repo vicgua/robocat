@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QColor>
 #include <QDebug>
+#include "equipdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,7 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connectDialog(new ConnectDialog),
     pantallaCrono(new PantallaCrono),
     chrono(new QTimer(this)),
-    db(new RoboDatabase)
+    db(new RoboDatabase),
+    infoEquipsModel(new QSqlQueryModel),
+    equipsModel(new QSqlQueryModel)
 {
     ui->setupUi(this);
 
@@ -41,6 +44,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(db, &RoboDatabase::inicialitzada, this, [=](){ gestionarFiConnexio(true); });
     connect(db, &RoboDatabase::errorSql, this, &MainWindow::errorSql);
 
+    ui->taulaEquips->setModel(infoEquipsModel);
+    ui->pantallaCronoE1T1->setModel(equipsModel);
+    ui->pantallaCronoE1T2->setModel(equipsModel);
+    ui->pantallaCronoE2T1->setModel(equipsModel);
+    ui->pantallaCronoE2T2->setModel(equipsModel);
+
     canviEstatBd(NO_CONNECTADA);
 }
 
@@ -48,7 +57,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete connectDialog;
+    delete pantallaCrono;
     delete chrono;
+    delete db;
 }
 
 void MainWindow::startChrono()
@@ -140,7 +151,8 @@ void MainWindow::canviBd(const ConnectionInfo &ci)
 
 void MainWindow::actualitzarDades()
 {
-    // TODO
+    db->populateInfoEquips(infoEquipsModel);
+    db->populateEquips(equipsModel);
 }
 
 void MainWindow::gestionarFiConnexio(bool exitosa)
@@ -188,4 +200,27 @@ void MainWindow::obreDialegInicialitzacio()
 void MainWindow::obrePantallaCrono()
 {
     pantallaCrono->show();
+}
+
+void MainWindow::afegirEquip()
+{
+    EquipDialog dialog;
+    if (dialog.exec() == QDialog::Accepted) {
+        qDebug() << "Accepted. Name: " << dialog.nom();
+        qDebug() << "Original:" << dialog.nomOriginal();
+    }
+}
+
+void MainWindow::modificarEquip()
+{
+    QItemSelectionModel *selection = ui->taulaEquips->selectionModel();
+    qDebug() << "Selection check";
+    if (!selection->hasSelection()) return;
+    qDebug() << "Has selection";
+    QString current = selection->selectedRows().at(0).data().toString();
+    EquipDialog dialog(current);
+    if (dialog.exec() == QDialog::Accepted) {
+        qDebug() << "Accepted. Name: " << dialog.nom();
+        qDebug() << "Original:" << dialog.nomOriginal();
+    }
 }

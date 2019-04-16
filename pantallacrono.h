@@ -34,6 +34,7 @@ public:
     };
 
     explicit PantallaCrono(QWidget *parent = nullptr);
+    ~PantallaCrono();
     EstatPantalla estat() const { return estat_; }
     bool taula1Enabled() const { return taula1Enabled_; }
     bool taula2Enabled() const { return taula2Enabled_; }

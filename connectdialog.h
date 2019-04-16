@@ -19,10 +19,6 @@ public:
 signals:
     void databaseSet(const ConnectionInfo &ci);
 
-private slots:
-    void on_dbmsInp_currentIndexChanged(const QString &newDbms);
-    void on_buttonBox_accepted();
-
 private:
     Ui::ConnectDialog *ui;
     QString cDriver;
@@ -32,7 +28,11 @@ private:
     bool hasPassword;
 
     void updateFields();
-    bool sanityCheck(QStringList &error);
+    bool sanityCheck(QStringList &error) const;
+
+private slots:
+    void on_dbmsInp_currentIndexChanged(const QString &newDbms);
+    void on_buttonBox_accepted();
 };
 
 #endif // CONNECTDIALOG_HH

@@ -60,8 +60,8 @@ void ConnectDialog::on_buttonBox_accepted()
     ci.database = ui->dbInp->text();
     ci.username = ui->userInp->text();
     ci.password = ui->passwordInp->text();
-    close();
     emit databaseSet(ci);
+    emit accept();
 }
 
 void ConnectDialog::updateFields()
@@ -79,7 +79,7 @@ void ConnectDialog::updateFields()
     ui->passwordInp->setEnabled(hasPassword);
 }
 
-bool ConnectDialog::sanityCheck(QStringList &error)
+bool ConnectDialog::sanityCheck(QStringList &error) const
 {
     bool ok = true;
     if (hasHost && ui->hostInp->text().isEmpty()) {

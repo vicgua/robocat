@@ -22,6 +22,13 @@ PantallaCrono::PantallaCrono(QWidget *parent) :
     setEstat(IDLE);
 }
 
+PantallaCrono::~PantallaCrono()
+{
+    delete idleUi;
+    delete seguentsUi;
+    delete playingUi;
+}
+
 void PantallaCrono::setEstat(PantallaCrono::EstatPantalla nouEstat) {
     if (nouEstat == estat_) return;
     estat_ = nouEstat;

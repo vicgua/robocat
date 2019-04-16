@@ -1,14 +1,13 @@
 #ifndef ROBODATABASE_H
 #define ROBODATABASE_H
 
-#include "data_objects/equip.h"
-#include "data_objects/estadistiquesequip.h"
 #include "data_objects/connectioninfo.h"
 #include "sentenciessql.h"
 #include <QString>
 #include <QObject>
 #include <QMap>
 #include <QSqlError>
+#include <QSqlQueryModel>
 
 class RoboDatabase : public QObject
 {
@@ -22,10 +21,11 @@ public:
     RoboDatabase(const RoboDatabase &other);
 
     bool isConnected() { return connected; }
-    QMap<Equip, EstadistiquesEquip> equips();
-    void afegirEquip(const Equip &equip);
+    void populateInfoEquips(QSqlQueryModel *model);
+    void populateEquips(QSqlQueryModel *model);
+    /*void afegirEquip(const Equip &equip);
     void modificarEquip(const Equip &equip);
-    void eliminarEquip(const Equip &equip);
+    void eliminarEquip(const Equip &equip);*/
     bool estaInicialitzada();
     void inicialitzar();
 

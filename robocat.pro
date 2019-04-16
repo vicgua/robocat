@@ -31,27 +31,28 @@ SOURCES += \
     robodatabase.cpp \
     sentenciessql.cpp \
     pantallacrono.cpp \
-    scalingimage.cpp
+    scalingimage.cpp \
+    equipdialog.cpp
 
 HEADERS += \
     connectdialog.h \
     mainwindow.h \
     chronolabel.h \
     robodatabase.h \
-    data_objects/equip.h \
-    data_objects/estadistiquesequip.h \
     data_objects/connectioninfo.h \
     sentenciessql.h \
     pantallacrono.h \
     scalingimage.h \
-    constants.h
+    constants.h \
+    equipdialog.h
 
 FORMS += \
         mainwindow.ui \
     connectdialog.ui \
     pantalles_crono/cronoidle.ui \
     pantalles_crono/cronoseguents.ui \
-    pantalles_crono/cronoplaying.ui
+    pantalles_crono/cronoplaying.ui \
+    equipdialog.ui
 
 RESOURCES += \
     resources.qrc \

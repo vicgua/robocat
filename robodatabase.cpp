@@ -26,36 +26,45 @@ RoboDatabase::RoboDatabase(const RoboDatabase &other) : QObject() {
     dbDriver = other.dbDriver;
 }
 
-QMap<Equip, EstadistiquesEquip> RoboDatabase::equips()
+void RoboDatabase::populateInfoEquips(QSqlQueryModel *model)
 {
     QLatin1Literal sql("SELECT\n"
-                       "    e.nom,\n"
-                       "    COALESCE(SUM(pe.punts),\n"
-                       "    0) AS total_punts,\n"
-                       "    COUNT(pe.equip) AS num_partits\n"
+                       "    nom,\n"
+                       "    punts_totals,\n"
+                       "    partides_jugades\n"
                        "FROM\n"
-                       "    equips AS e\n"
-                       "LEFT OUTER JOIN punts_equip AS pe ON\n"
-                       "    e.nom = pe.equip\n"
-                       "GROUP BY\n"
-                       "    e.nom;\n");
+                       "    classificacio_equips\n"
+                       "ORDER BY\n"
+                       "    nom ASC;\n");
     QSqlQuery query;
-    QMap<Equip, EstadistiquesEquip> resultat;
     if (!query.exec(sql)) {
         emit errorSql(query.lastError());
-        return resultat;
+        return;
     }
-    while (query.next()) {
-        EstadistiquesEquip est;
-        est.puntuacio_total = query.value(1).toInt();
-        est.num_partides = query.value(2).toInt();
-        QString nomEquip = query.value(0).toString();
-        resultat[Equip(nomEquip)] = est;
-    }
-    return resultat;
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, "Nom", Qt::DisplayRole);
+    model->setHeaderData(1, Qt::Horizontal, "Punts totals", Qt::DisplayRole);
+    model->setHeaderData(2, Qt::Horizontal, "Partides jugades", Qt::DisplayRole);
 }
 
-void RoboDatabase::afegirEquip(const Equip &equip)
+void RoboDatabase::populateEquips(QSqlQueryModel *model)
+{
+    QLatin1Literal sql("SELECT\n"
+                       "    nom\n"
+                       "FROM\n"
+                       "    equips\n"
+                       "ORDER BY\n"
+                       "    nom ASC;\n");
+    QSqlQuery query;
+    if (!query.exec(sql)) {
+        emit errorSql(query.lastError());
+        return;
+    }
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, "Nom", Qt::DisplayRole);
+}
+
+/*void RoboDatabase::afegirEquip(const Equip &equip)
 {
     QLatin1Literal sql("INSERT\n"
                        "    INTO\n"
@@ -102,7 +111,7 @@ void RoboDatabase::eliminarEquip(const Equip &equip)
         emit errorSql(query.lastError());
     }
     emit dataChanged();
-}
+}*/
 
 bool RoboDatabase::estaInicialitzada()
 {

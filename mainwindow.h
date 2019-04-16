@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QSqlQueryModel>
 #include "connectdialog.h"
 #include "data_objects/connectioninfo.h"
 #include "robodatabase.h"
@@ -33,13 +34,14 @@ signals:
     void chronoTimedOut();
     void chronoTicked(int temps);
 
-
 private:
     Ui::MainWindow *ui;
     ConnectDialog *connectDialog;
     PantallaCrono *pantallaCrono;
     QTimer* chrono;
     RoboDatabase *db;
+    QSqlQueryModel *infoEquipsModel;
+    QSqlQueryModel *equipsModel;
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
@@ -62,7 +64,8 @@ private slots:
     void errorSql(const QSqlError &error);
     void obreDialegInicialitzacio();
     void obrePantallaCrono();
-
+    void afegirEquip();
+    void modificarEquip();
 };
 
 #endif // MAINWINDOW_HH
