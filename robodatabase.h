@@ -12,8 +12,7 @@
 class RoboDatabase : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool connected READ isConnected CONSTANT)
-    Q_PROPERTY(bool inicialitzada READ estaInicialitzada CONSTANT)
+
 public:
     void setup(const ConnectionInfo &ci);
 

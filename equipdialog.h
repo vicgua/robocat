@@ -10,10 +10,6 @@ class EquipDialog;
 class EquipDialog : public QDialog
 {
     Q_OBJECT
-    Q_PROPERTY(QString nom READ nom WRITE setNom)
-    Q_PROPERTY(int puntsTotals READ puntsTotals WRITE setPuntsTotals)
-    Q_PROPERTY(int partidesJugades READ partidesJugades WRITE setPartidesJugades)
-    Q_PROPERTY(QString nomOriginal MEMBER nomOriginal_ CONSTANT)
 
 public:
     explicit EquipDialog(QWidget *parent = 0);

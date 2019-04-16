@@ -17,13 +17,6 @@ class CronoPlaying;
 class PantallaCrono : public QMainWindow
 {
     Q_OBJECT
-    Q_PROPERTY(EstatPantalla estat READ estat WRITE setEstat NOTIFY estatChanged)
-    Q_PROPERTY(bool taula1Enabled READ taula1Enabled WRITE setTaula1Enabled NOTIFY taula1EnabledChanged)
-    Q_PROPERTY(bool taula2Enabled READ taula2Enabled WRITE setTaula2Enabled NOTIFY taula2EnabledChanged)
-    Q_PROPERTY(QString equip1Taula1 READ equip1Taula1 WRITE setEquip1Taula1 NOTIFY equip1Taula1Changed)
-    Q_PROPERTY(QString equip2Taula1 READ equip2Taula1 WRITE setEquip2Taula1 NOTIFY equip2Taula1Changed)
-    Q_PROPERTY(QString equip1Taula2 READ equip1Taula2 WRITE setEquip1Taula2 NOTIFY equip1Taula2Changed)
-    Q_PROPERTY(QString equip2Taula2 READ equip2Taula2 WRITE setEquip2Taula2 NOTIFY equip2Taula2Changed)
 
 public:
     static int warnTempsCrono;
