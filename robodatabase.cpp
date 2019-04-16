@@ -150,13 +150,3 @@ void RoboDatabase::desconnecta()
     connected = false;
     emit desconnectada();
 }
-
-QString RoboDatabase::sqlInit()
-{
-    QFile sqlFile(":/sql_scripts/init.sql");
-    if (!sqlFile.open(QFile::ReadOnly | QFile::Text)) {
-        throw "No es pot obrir script SQL";
-    }
-    QTextStream stream(&sqlFile);
-    return stream.readAll();
-}

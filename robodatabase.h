@@ -42,7 +42,6 @@ public slots:
 private:
     bool connected;
     QString dbDriver;
-    static QString sqlInit();
 
 };
 

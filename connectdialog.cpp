@@ -32,8 +32,7 @@ void ConnectDialog::on_dbmsInp_currentIndexChanged(const QString &newDbms)
         hasUsername = false;
         hasPassword = false;
     } else {
-        QDebug(QtFatalMsg) << "Invalid DBMS: " << newDbms;
-        throw "Invalid DBMS";
+        qFatal("Invalid DBMS: %s", newDbms);
     }
     updateFields();
 }
