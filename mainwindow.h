@@ -55,6 +55,7 @@ private:
 
     void updateChronoButtons(bool running);
     void updateConnectat(bool connectat, bool inicialitzada = true);
+    void resetModels();
 
 private slots:
     void canviEstatBd(EstatBd estat);
@@ -66,6 +67,8 @@ private slots:
     void obrePantallaCrono();
     void afegirEquip();
     void modificarEquip();
+    void eliminarEquip();
+    void desconnectaBd();
 };
 
 #endif // MAINWINDOW_HH

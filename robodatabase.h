@@ -26,7 +26,6 @@ public:
     void modificarEquip(const Equip &equip);
     void eliminarEquip(const Equip &equip);*/
     bool estaInicialitzada();
-    void inicialitzar();
 
 signals:
     void errorSql(const QSqlError &error);
@@ -38,6 +37,10 @@ signals:
 public slots:
     void iniciaConnexio();
     void desconnecta();
+    void inicialitzar();
+    void afegirEquip(const QString &nomEquip);
+    void modificarEquip(const QString &nomAntic, const QString &nomNou);
+    void eliminarEquip(const QString &nomEquip);
 
 private:
     bool connected;

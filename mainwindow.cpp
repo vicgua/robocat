@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     connectDialog(new ConnectDialog),
-    pantallaCrono(new PantallaCrono),
+    pantallaCrono(new PantallaCrono(this)),
     chrono(new QTimer(this)),
     db(new RoboDatabase),
     infoEquipsModel(new QSqlQueryModel),
@@ -29,13 +29,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pantallaCronoCronometre, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setCrono()));
     connect(ui->pantallaCronoTaula1, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula1Enabled(bool)));
     connect(ui->pantallaCronoE1T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula1(QString)));
-    connect(ui->pantallaCronoE1T2, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip2Taula1(QString)));
+    connect(ui->pantallaCronoE2T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip2Taula1(QString)));
     connect(ui->pantallaCronoTaula2, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula2Enabled(bool)));
-    connect(ui->pantallaCronoE2T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula2(QString)));
+    connect(ui->pantallaCronoE1T2, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula2(QString)));
     connect(ui->pantallaCronoE2T2, SIGNAL(currentTextChanged(QString)), pantallaCrono, SLOT(setEquip2Taula2(QString)));
 
     connect(ui->actionConnectar_a_BD, SIGNAL(triggered()), connectDialog, SLOT(exec()));
-    connect(ui->actionTancar_connexio, SIGNAL(triggered()), db, SLOT(desconnecta()));
+    connect(ui->actionTancar_connexio, SIGNAL(triggered()), this, SLOT(desconnectaBd())); // TODO
 
     connect(connectDialog, &ConnectDialog::databaseSet, this, &MainWindow::canviBd);
 
@@ -43,12 +43,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(db, &RoboDatabase::desconnectada, this, [=](){ canviEstatBd(NO_CONNECTADA); });
     connect(db, &RoboDatabase::inicialitzada, this, [=](){ gestionarFiConnexio(true); });
     connect(db, &RoboDatabase::errorSql, this, &MainWindow::errorSql);
+    connect(db, &RoboDatabase::dataChanged, this, &MainWindow::actualitzarDades);
 
     ui->taulaEquips->setModel(infoEquipsModel);
     ui->pantallaCronoE1T1->setModel(equipsModel);
     ui->pantallaCronoE1T2->setModel(equipsModel);
     ui->pantallaCronoE2T1->setModel(equipsModel);
     ui->pantallaCronoE2T2->setModel(equipsModel);
+
+    pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->checkState() == Qt::Checked);
+    pantallaCrono->setEquip1Taula1(ui->pantallaCronoE1T1->currentText());
+    pantallaCrono->setEquip2Taula1(ui->pantallaCronoE2T1->currentText());
+    pantallaCrono->setTaula2Enabled(ui->pantallaCronoTaula2->checkState() == Qt::Checked);
+    pantallaCrono->setEquip1Taula2(ui->pantallaCronoE1T2->currentText());
+    pantallaCrono->setEquip2Taula2(ui->pantallaCronoE2T2->currentText());
 
     canviEstatBd(NO_CONNECTADA);
 }
@@ -92,10 +100,26 @@ void MainWindow::updateChronoButtons(bool running)
 
 void MainWindow::updateConnectat(bool connectat, bool inicialitzada)
 {
-    ui->tabWidget->setEnabled(true || (connectat && inicialitzada)); // DEBUG
+    ui->tabWidget->setEnabled(connectat && inicialitzada);
     ui->actionTancar_connexio->setEnabled(connectat);
     ui->actionInicialitzar_BD->setEnabled(connectat);
-    ui->menuPantalles->setEnabled(true || (connectat && inicialitzada)); // DEBUG
+    ui->actionActualitzar_BD->setEnabled(connectat && inicialitzada);
+    ui->menuPantalles->setEnabled(connectat && inicialitzada);
+}
+
+void MainWindow::resetModels()
+{
+    QSqlQueryModel *nouInfoEquipsModel = new QSqlQueryModel;
+    QSqlQueryModel *nouEquipsModel = new QSqlQueryModel;
+    ui->taulaEquips->setModel(nouInfoEquipsModel);
+    ui->pantallaCronoE1T1->setModel(nouEquipsModel);
+    ui->pantallaCronoE1T2->setModel(nouEquipsModel);
+    ui->pantallaCronoE2T1->setModel(nouEquipsModel);
+    ui->pantallaCronoE2T2->setModel(nouEquipsModel);
+    delete infoEquipsModel;
+    delete equipsModel;
+    infoEquipsModel = nouInfoEquipsModel;
+    equipsModel = nouEquipsModel;
 }
 
 void MainWindow::canviEstatBd(EstatBd estat)
@@ -186,14 +210,8 @@ void MainWindow::obreDialegInicialitzacio()
     preguntaDialog.setText("ATENCIÓ: Inicialitzar la base de dades farà"
                            " que es perdin les dades preexistents. Continuar?");
     preguntaDialog.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    switch (preguntaDialog.exec()) {
-    case QMessageBox::Yes:
+    if (preguntaDialog.exec() == QMessageBox::Yes) {
         db->inicialitzar();
-        return;
-    case QMessageBox::No:
-        return;
-    default:
-        Q_UNREACHABLE();
     }
 }
 
@@ -206,21 +224,41 @@ void MainWindow::afegirEquip()
 {
     EquipDialog dialog;
     if (dialog.exec() == QDialog::Accepted) {
-        qDebug() << "Accepted. Name: " << dialog.nom();
-        qDebug() << "Original:" << dialog.nomOriginal();
+        db->afegirEquip(dialog.nom());
     }
 }
 
 void MainWindow::modificarEquip()
 {
     QItemSelectionModel *selection = ui->taulaEquips->selectionModel();
-    qDebug() << "Selection check";
     if (!selection->hasSelection()) return;
-    qDebug() << "Has selection";
     QString current = selection->selectedRows().at(0).data().toString();
     EquipDialog dialog(current);
     if (dialog.exec() == QDialog::Accepted) {
-        qDebug() << "Accepted. Name: " << dialog.nom();
-        qDebug() << "Original:" << dialog.nomOriginal();
+        db->modificarEquip(dialog.nomOriginal(), dialog.nom());
     }
+}
+
+void MainWindow::eliminarEquip()
+{
+    QItemSelectionModel *selection = ui->taulaEquips->selectionModel();
+    if (!selection->hasSelection()) return;
+    QString current = selection->selectedRows().at(0).data().toString();
+    QMessageBox dialog(this);
+    dialog.setIcon(QMessageBox::Question);
+    QString text = QString("<b>Esborrar l'equip %1?</b><br />"
+                           "(Si ha participat en partides, s'han d'esborrar aquestes primer")
+            .arg(current);
+    dialog.setText(text);
+    dialog.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    dialog.setDefaultButton(QMessageBox::No);
+    if (dialog.exec() == QMessageBox::Yes) {
+        db->eliminarEquip(current);
+    }
+}
+
+void MainWindow::desconnectaBd()
+{
+    resetModels();
+    db->desconnecta();
 }

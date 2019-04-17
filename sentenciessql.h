@@ -7,6 +7,7 @@
 
 namespace SentenciesSql {
 using SqlPtr = const char *;
+using SqlSentence = const char *;
 
 namespace init {
 constexpr SqlPtr dropEquips = ":/sql/init/drop/equips.sql";
@@ -22,6 +23,38 @@ constexpr SqlPtr createClassificacioRondes = ":/sql/init/create/classificacio_ro
 constexpr SqlPtr createClassificacioEquips = ":/sql/init/create/classificacio_equips.sql";
 
 QList<SqlPtr> initAll();
+}
+
+namespace equips {
+constexpr SqlSentence selectEquipInfo = "SELECT\n"
+                                        "    nom,\n"
+                                        "    punts_totals,\n"
+                                        "    partides_jugades\n"
+                                        "FROM\n"
+                                        "    classificacio_equips\n"
+                                        "ORDER BY\n"
+                                        "    nom ASC;\n";
+constexpr SqlSentence selectEquips = "SELECT\n"
+                                     "    nom\n"
+                                     "FROM\n"
+                                     "    equips\n"
+                                     "ORDER BY\n"
+                                     "    nom ASC;\n";
+constexpr SqlSentence insertEquip = "INSERT\n"
+                                    "    INTO\n"
+                                    "        equips(nom)\n"
+                                    "    VALUES (:nom);\n";
+constexpr SqlSentence updateEquip = "UPDATE\n"
+                                    "    equips\n"
+                                    "SET\n"
+                                    "    nom = :nomNou\n"
+                                    "WHERE\n"
+                                    "    nom = :nomAntic;\n";
+constexpr SqlSentence deleteEquip = "DELETE\n"
+                                    "FROM\n"
+                                    "    equips\n"
+                                    "WHERE\n"
+                                    "    nom = :nom;\n";
 }
 
 QString getSql(SqlPtr ptr);

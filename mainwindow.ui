@@ -334,7 +334,7 @@
      <x>0</x>
      <y>0</y>
      <width>521</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArxiu">
@@ -343,10 +343,12 @@
     </property>
     <addaction name="actionConnectar_a_BD"/>
     <addaction name="actionTancar_connexio"/>
+    <addaction name="actionActualitzar_BD"/>
     <addaction name="separator"/>
     <addaction name="actionInicialitzar_BD"/>
     <addaction name="separator"/>
     <addaction name="actionSortir"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuPantalles">
     <property name="title">
@@ -362,10 +364,16 @@
    <property name="text">
     <string>&amp;Sortir</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="actionConnectar_a_BD">
    <property name="text">
     <string>&amp;Connectar a BD</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionTancar_connexio">
@@ -374,6 +382,9 @@
    </property>
    <property name="text">
     <string>&amp;Tancar connexió</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
   <action name="actionPuntuacio">
@@ -389,6 +400,17 @@
   <action name="actionInicialitzar_BD">
    <property name="text">
     <string>Inicialitzar BD</string>
+   </property>
+  </action>
+  <action name="actionActualitzar_BD">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Actualitzar BD</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
  </widget>
@@ -434,8 +456,8 @@
      <y>35</y>
     </hint>
     <hint type="destinationlabel">
-     <x>101</x>
-     <y>169</y>
+     <x>112</x>
+     <y>301</y>
     </hint>
    </hints>
   </connection>
@@ -446,8 +468,8 @@
    <slot>startChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>341</y>
+     <x>113</x>
+     <y>339</y>
     </hint>
     <hint type="destinationlabel">
      <x>94</x>
@@ -462,8 +484,8 @@
    <slot>stopChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>282</x>
-     <y>341</y>
+     <x>337</x>
+     <y>339</y>
     </hint>
     <hint type="destinationlabel">
      <x>223</x>
@@ -478,8 +500,8 @@
    <slot>resetChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>443</x>
-     <y>341</y>
+     <x>499</x>
+     <y>339</y>
     </hint>
     <hint type="destinationlabel">
      <x>351</x>
@@ -530,8 +552,8 @@
      <y>126</y>
     </hint>
     <hint type="destinationlabel">
-     <x>424</x>
-     <y>128</y>
+     <x>403</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>
@@ -562,8 +584,8 @@
      <y>159</y>
     </hint>
     <hint type="destinationlabel">
-     <x>424</x>
-     <y>161</y>
+     <x>403</x>
+     <y>176</y>
     </hint>
    </hints>
   </connection>
@@ -615,6 +637,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionActualitzar_BD</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>actualitzarDades()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eliminarEquips</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>eliminarEquip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>470</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>516</x>
+     <y>284</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>chronoTicked(int)</signal>
@@ -625,6 +679,8 @@
   <slot>obrePantallaCrono()</slot>
   <slot>afegirEquip()</slot>
   <slot>modificarEquip()</slot>
+  <slot>actualitzarDades()</slot>
+  <slot>eliminarEquip()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="estatPantallaCronoBg"/>

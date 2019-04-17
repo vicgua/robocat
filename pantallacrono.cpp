@@ -30,7 +30,6 @@ PantallaCrono::~PantallaCrono()
 }
 
 void PantallaCrono::setEstat(PantallaCrono::EstatPantalla nouEstat) {
-    if (nouEstat == estat_) return;
     estat_ = nouEstat;
     QWidget *newCentralWidget = new QWidget;
     switch (estat_) {
