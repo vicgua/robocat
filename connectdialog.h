@@ -28,7 +28,7 @@ private:
     bool hasPassword;
 
     void updateFields();
-    bool sanityCheck(QStringList &error) const;
+    bool sanityCheck(QStringList &errors) const;
 
 private slots:
     void on_dbmsInp_currentIndexChanged(const QString &newDbms);

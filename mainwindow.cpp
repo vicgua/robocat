@@ -51,10 +51,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pantallaCronoE2T1->setModel(equipsModel);
     ui->pantallaCronoE2T2->setModel(equipsModel);
 
-    pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->checkState() == Qt::Checked);
+    pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->isChecked());
     pantallaCrono->setEquip1Taula1(ui->pantallaCronoE1T1->currentText());
     pantallaCrono->setEquip2Taula1(ui->pantallaCronoE2T1->currentText());
-    pantallaCrono->setTaula2Enabled(ui->pantallaCronoTaula2->checkState() == Qt::Checked);
+    pantallaCrono->setTaula2Enabled(ui->pantallaCronoTaula2->isChecked());
     pantallaCrono->setEquip1Taula2(ui->pantallaCronoE1T2->currentText());
     pantallaCrono->setEquip2Taula2(ui->pantallaCronoE2T2->currentText());
 

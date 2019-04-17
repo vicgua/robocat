@@ -78,20 +78,20 @@ void ConnectDialog::updateFields()
     ui->passwordInp->setEnabled(hasPassword);
 }
 
-bool ConnectDialog::sanityCheck(QStringList &error) const
+bool ConnectDialog::sanityCheck(QStringList &errors) const
 {
     bool ok = true;
     if (hasHost && ui->hostInp->text().isEmpty()) {
         ok = false;
-        error.append("`Host` buit però necessari");
+        errors.append("`Host` buit però necessari");
     }
     if (hasDatabase && ui->dbInp->text().isEmpty()) {
         ok = false;
-        error.append("`Base de dades` buida però necessària");
+        errors.append("`Base de dades` buida però necessària");
     }
     if (hasUsername && ui->userInp->text().isEmpty()) {
         ok = false;
-        error.append("`Nom d'usuari` buit però necessari");
+        errors.append("`Nom d'usuari` buit però necessari");
     }
     // La contrasenya pot no ser necessària
     return ok;
