@@ -15,9 +15,11 @@ class PartidaDialog : public QDialog
 
 public:
     explicit PartidaDialog(QWidget *parent = 0);
+    explicit PartidaDialog(const Partida &partidaOriginal, QWidget *parent = 0);
     ~PartidaDialog();
 
     const Partida &partida() const { return partida_; }
+    const PartidaPk &pkOriginal() const { return pkOriginal_; }
 
 public slots:
     void setPartida(const Partida &partida);
@@ -25,6 +27,7 @@ public slots:
 private:
     Ui::PartidaDialog *ui;
     Partida partida_;
+    PartidaPk pkOriginal_;
 
     void collectData();
     void updateData();

@@ -57,6 +57,24 @@ constexpr SqlSentence deleteEquip = "DELETE\n"
                                     "    nom = :nom;\n";
 }
 
+namespace partides {
+constexpr SqlSentence selectPartides = "SELECT\n"
+                                       "    ronda,\n"
+                                       "    equip1,\n"
+                                       "    equip2,\n"
+                                       "    taps1,\n"
+                                       "    taps2,\n"
+                                       "    bandera1 = 25,\n"
+                                       "    bandera2 = 25,\n"
+                                       "    extra1,\n"
+                                       "    extra2,\n"
+                                       "    notes\n"
+                                       "FROM\n"
+                                       "    partides\n"
+                                       "ORDER BY\n"
+                                       "    ronda DESC;\n";
+}
+
 QString getSql(SqlPtr ptr);
 QSqlQuery execSql(SqlPtr ptr, bool &success);
 bool execManySql(QList<SqlPtr> ptrlist, QSqlError &error);

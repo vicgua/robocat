@@ -53,6 +53,57 @@ void RoboDatabase::populateEquips(QSqlQueryModel *model)
     model->setHeaderData(0, Qt::Horizontal, "Nom", Qt::DisplayRole);
 }
 
+void RoboDatabase::populatePartides(QSqlQueryModel *model)
+{
+    QSqlQuery query;
+    if (!query.exec(SentenciesSql::partides::selectPartides)) {
+        emit errorSql(query.lastError());
+        return;
+    }
+    model->clear();
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, "Ronda", Qt::DisplayRole);
+    model->setHeaderData(1, Qt::Horizontal, "Equip 1", Qt::DisplayRole);
+    model->setHeaderData(2, Qt::Horizontal, "Equip 2", Qt::DisplayRole);
+    model->setHeaderData(3, Qt::Horizontal, "Taps 1", Qt::DisplayRole);
+    model->setHeaderData(4, Qt::Horizontal, "Taps 2", Qt::DisplayRole);
+    model->setHeaderData(5, Qt::Horizontal, "Bandera 1", Qt::DisplayRole);
+    model->setHeaderData(6, Qt::Horizontal, "Bandera 2", Qt::DisplayRole);
+    model->setHeaderData(7, Qt::Horizontal, "Extra 1", Qt::DisplayRole);
+    model->setHeaderData(8, Qt::Horizontal, "Extra 2", Qt::DisplayRole);
+    model->setHeaderData(9, Qt::Horizontal, "Notes", Qt::DisplayRole);
+}
+
+#if 0
+void RoboDatabase::populatePartides(QVector<Partida> &partides)
+{
+    QSqlQuery query;
+    if (!query.exec(SentenciesSql::partides::selectPartides)) {
+        emit errorSql(query.lastError());
+        return;
+    }
+    partides.clear();
+    int resultSize = query.size();
+    if (resultSize != -1) {
+        partides.reserve(resultSize);
+    }
+    while (query.next()) {
+        Partida p;
+        p.ronda = query.value(0).toInt();
+        p.equip1 = query.value(1).toString();
+        p.equip2 = query.value(2).toString();
+        p.taps1 = query.value(3).toInt();
+        p.taps2 = query.value(4).toInt();
+        p.bandera1 = query.value(5).toBool();
+        p.bandera2 = query.value(6).toBool();
+        p.extra1 = query.value(7).toInt();
+        p.extra2 = query.value(8).toInt();
+        p.notes = query.value(9).toString(); // Els NULLs es converteixen en strings buits
+        partides.append(p);
+    }
+}
+#endif
+
 void RoboDatabase::afegirEquip(const QString &nomEquip)
 {
     QSqlQuery query;

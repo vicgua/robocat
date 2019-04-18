@@ -2,12 +2,14 @@
 #define ROBODATABASE_H
 
 #include "data_objects/connectioninfo.h"
+#include "data_objects/partida.h"
 #include "sentenciessql.h"
 #include <QString>
 #include <QObject>
 #include <QMap>
 #include <QSqlError>
 #include <QSqlQueryModel>
+#include <QVector>
 
 class RoboDatabase : public QObject
 {
@@ -22,9 +24,8 @@ public:
     bool isConnected() { return connected; }
     void populateInfoEquips(QSqlQueryModel *model);
     void populateEquips(QSqlQueryModel *model);
-    /*void afegirEquip(const Equip &equip);
-    void modificarEquip(const Equip &equip);
-    void eliminarEquip(const Equip &equip);*/
+    void populatePartides(QSqlQueryModel *model);
+    //void populatePartides(QVector<Partida> &partides);
     bool estaInicialitzada();
 
 signals:

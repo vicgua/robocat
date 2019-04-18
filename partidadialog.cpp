@@ -9,6 +9,15 @@ PartidaDialog::PartidaDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+PartidaDialog::PartidaDialog(const Partida &partidaOriginal, QWidget *parent) :
+    PartidaDialog(parent)
+{
+    pkOriginal_.ronda = partidaOriginal.ronda;
+    pkOriginal_.equip1 = partidaOriginal.equip1;
+    pkOriginal_.equip2 = partidaOriginal.equip2;
+    setPartida(partidaOriginal);
+}
+
 PartidaDialog::~PartidaDialog()
 {
     delete ui;

@@ -14,7 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     chrono(new QTimer(this)),
     db(new RoboDatabase),
     infoEquipsModel(new QSqlQueryModel),
-    equipsModel(new QSqlQueryModel)
+    equipsModel(new QSqlQueryModel),
+    partidesModel(new QSqlQueryModel)
 {
     ui->setupUi(this);
 
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pantallaCronoE1T2->setModel(equipsModel);
     ui->pantallaCronoE2T1->setModel(equipsModel);
     ui->pantallaCronoE2T2->setModel(equipsModel);
+    ui->taulaPartides->setModel(partidesModel);
 
     pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->isChecked());
     pantallaCrono->setEquip1Taula1(ui->pantallaCronoE1T1->currentText());
@@ -68,6 +70,9 @@ MainWindow::~MainWindow()
     delete pantallaCrono;
     delete chrono;
     delete db;
+    delete infoEquipsModel;
+    delete equipsModel;
+    delete partidesModel;
 }
 
 void MainWindow::startChrono()
@@ -177,6 +182,7 @@ void MainWindow::actualitzarDades()
 {
     db->populateInfoEquips(infoEquipsModel);
     db->populateEquips(equipsModel);
+    db->populatePartides(partidesModel);
 }
 
 void MainWindow::gestionarFiConnexio(bool exitosa)

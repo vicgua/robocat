@@ -42,6 +42,7 @@ private:
     RoboDatabase *db;
     QSqlQueryModel *infoEquipsModel;
     QSqlQueryModel *equipsModel;
+    QSqlQueryModel *partidesModel;
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
