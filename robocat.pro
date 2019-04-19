@@ -33,7 +33,8 @@ SOURCES += \
     pantallacrono.cpp \
     scalingimage.cpp \
     equipdialog.cpp \
-    partidadialog.cpp
+    partidadialog.cpp \
+    pantallapuntuacio.cpp
 
 HEADERS += \
     connectdialog.h \
@@ -47,7 +48,8 @@ HEADERS += \
     constants.h \
     equipdialog.h \
     partidadialog.h \
-    data_objects/partida.h
+    data_objects/partida.h \
+    pantallapuntuacio.h
 
 FORMS += \
         mainwindow.ui \
@@ -56,7 +58,8 @@ FORMS += \
     pantalles_crono/cronoseguents.ui \
     pantalles_crono/cronoplaying.ui \
     equipdialog.ui \
-    partidadialog.ui
+    partidadialog.ui \
+    pantallapuntuacio.ui
 
 RESOURCES += \
     resources.qrc \
