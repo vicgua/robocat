@@ -1,5 +1,5 @@
 CREATE
-    VIEW classificacio_ronda AS SELECT
+    VIEW classificacio_rondes AS SELECT
         e.nom,
         p.ronda,
         COALESCE(SUM(CASE WHEN e.nom = p.equip1 THEN p.punts1 WHEN e.nom = p.equip2 THEN p.punts2 END),

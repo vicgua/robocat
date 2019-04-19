@@ -17,8 +17,8 @@ QList<SentenciesSql::SqlPtr> SentenciesSql::init::initAll() {
 QString SentenciesSql::getSql(SentenciesSql::SqlPtr ptr)
 {
     QFile f(ptr);
-    if (true || !f.open(QFile::ReadOnly | QFile::Text)) {
-        qFatal("No es pot obrir arxiu SQL");
+    if (!f.open(QFile::ReadOnly | QFile::Text)) {
+        qFatal("No es pot obrir arxiu SQL '%s': %s", ptr, f.errorString().toUtf8().data());
     }
     QTextStream stream(&f);
     return stream.readAll();
