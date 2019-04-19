@@ -2,7 +2,10 @@
 
 ChronoLabel::ChronoLabel(QWidget *parent) :
     QLabel(parent),
-    warningTime(0)
+    warningTime(0),
+    runningColor(0x99, 0xFF, 0x66),
+    warningColor(0xFF, 0xFF, 0x66),
+    ranoutColor(0xFF, 0x66, 0x66)
 {
     updateTicks(0);
 }
@@ -20,11 +23,11 @@ void ChronoLabel::updateColors(int temps)
 {
     QPalette palette = this->palette();
     if (temps == 0) {
-        palette.setColor(backgroundRole(), Qt::red);
+        palette.setColor(backgroundRole(), ranoutColor);
     } else if (temps <= warningTime) {
-        palette.setColor(backgroundRole(), Qt::yellow);
+        palette.setColor(backgroundRole(), warningColor);
     } else {
-        palette.setColor(backgroundRole(), Qt::green);
+        palette.setColor(backgroundRole(), runningColor);
     }
     this->setPalette(palette);
 }

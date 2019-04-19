@@ -30,11 +30,11 @@ SOURCES += \
     chronolabel.cpp \
     robodatabase.cpp \
     sentenciessql.cpp \
-    pantallacrono.cpp \
     scalingimage.cpp \
     equipdialog.cpp \
     partidadialog.cpp \
-    pantallapuntuacio.cpp
+    pantallapuntuacio.cpp \
+    pantallacrono.cpp
 
 HEADERS += \
     connectdialog.h \
@@ -43,14 +43,14 @@ HEADERS += \
     robodatabase.h \
     data_objects/connectioninfo.h \
     sentenciessql.h \
-    pantallacrono.h \
     scalingimage.h \
     constants.h \
     equipdialog.h \
     partidadialog.h \
     data_objects/partida.h \
     pantallapuntuacio.h \
-    data_objects/equip.h
+    data_objects/equip.h \
+    pantallacrono.h
 
 FORMS += \
         mainwindow.ui \

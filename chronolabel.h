@@ -16,6 +16,9 @@ public slots:
     void updateTicks(int temps);
 
 private:
+    const QColor runningColor;
+    const QColor warningColor;
+    const QColor ranoutColor;
     void updateColors(int temps);
 };
 

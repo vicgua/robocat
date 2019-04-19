@@ -1,25 +1,38 @@
 #include "pantallacrono.h"
+#include "constants.h"
 #include "ui_cronoidle.h"
 #include "ui_cronoseguents.h"
 #include "ui_cronoplaying.h"
+#include <QVBoxLayout>
+#include <QKeyEvent>
+#include <QDebug>
 
 PantallaCrono::PantallaCrono(QWidget *parent) :
-    QMainWindow(parent),
-    taula1Enabled_(true), // Temporary fix
-    taula2Enabled_(true), // Temporary fix
-    equip1Taula1_("AAA"), // TF
-    equip2Taula1_("BBB"), // TF
-    equip1Taula2_("CCC"), // TF
-    equip2Taula2_("DDD"), // TF
+    QWidget(parent),
     idleUi(new Ui::CronoIdle),
     seguentsUi(new Ui::CronoSeguents),
     playingUi(new Ui::CronoPlaying)
 {
+    QVBoxLayout *layout = new QVBoxLayout;
+    stackedLayout = new QStackedLayout;
+    layout->addLayout(stackedLayout);
+    QWidget *idleWidget = new QWidget;
+    stackedLayout->addWidget(idleWidget);
+    idleUi->setupUi(idleWidget);
+    QWidget *seguentsWidget = new QWidget;
+    stackedLayout->addWidget(seguentsWidget);
+    seguentsUi->setupUi(seguentsWidget);
+    QWidget *cronoWidget = new QWidget;
+    stackedLayout->addWidget(cronoWidget);
+    playingUi->setupUi(cronoWidget);
+    setLayout(layout);
+
     Qt::WindowFlags flags = windowFlags();
-    flags |= Qt::CustomizeWindowHint | Qt::WindowFullscreenButtonHint;
+    flags |= Qt::Window | Qt::CustomizeWindowHint | Qt::WindowFullscreenButtonHint;
     flags &= ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(flags);
-    setEstat(IDLE);
+
+    playingUi->cronometre->warningTime = constants::WARN_TIME;
 }
 
 PantallaCrono::~PantallaCrono()
@@ -29,98 +42,65 @@ PantallaCrono::~PantallaCrono()
     delete playingUi;
 }
 
-void PantallaCrono::setEstat(PantallaCrono::EstatPantalla nouEstat) {
-    estat_ = nouEstat;
-    QWidget *newCentralWidget = new QWidget;
-    switch (estat_) {
-    case IDLE:
-        idleUi->setupUi(newCentralWidget);
-        break;
-    case SEGUENTS:
-        seguentsUi->setupUi(newCentralWidget);
-        break;
-    case CRONO:
-        playingUi->setupUi(newCentralWidget);
-        break;
-    }
-    setCentralWidget(newCentralWidget);
-    updateWidgetsStatus();
-    emit estatChanged(estat_);
-}
-
-void PantallaCrono::setIdle()
+void PantallaCrono::setPantalla(PantallaCrono::Pantalles pantalla)
 {
-    setEstat(IDLE);
-}
-
-void PantallaCrono::setSeguents()
-{
-    setEstat(SEGUENTS);
-}
-
-void PantallaCrono::setCrono()
-{
-    setEstat(CRONO);
+    stackedLayout->setCurrentIndex(int(pantalla));
 }
 
 void PantallaCrono::setTaula1Enabled(bool enabled)
 {
-    taula1Enabled_ = enabled;
-    updateWidgetsStatus();
-    emit taula1EnabledChanged(enabled);
+    seguentsUi->taula1Widget->setVisible(enabled);
+    playingUi->taula1Widget->setVisible(enabled);
+    if (enabled == seguentsUi->taula2Widget->isVisible()) {
+        seguentsUi->seguentsLabel->setText("Següents partides");
+    } else {
+        seguentsUi->seguentsLabel->setText("Següent partida");
+    }
 }
 
 void PantallaCrono::setTaula2Enabled(bool enabled)
 {
-    taula2Enabled_ = enabled;
-    updateWidgetsStatus();
-    emit taula2EnabledChanged(enabled);
+    seguentsUi->taula2Widget->setVisible(enabled);
+    playingUi->taula2Widget->setVisible(enabled);
+    if (enabled == seguentsUi->taula1Widget->isVisible()) {
+        seguentsUi->seguentsLabel->setText("Següents partides");
+    } else {
+        seguentsUi->seguentsLabel->setText("Següent partida");
+    }
 }
 
 void PantallaCrono::setEquip1Taula1(const QString &equip)
 {
-    equip1Taula1_ = equip;
-    updateWidgetsStatus();
-    emit equip1Taula1Changed(equip);
+    seguentsUi->e1t1Label->setText(equip);
+    playingUi->e1t1Label->setText(equip);
 }
 
 void PantallaCrono::setEquip2Taula1(const QString &equip)
 {
-    equip2Taula1_ = equip;
-    updateWidgetsStatus();
-    emit equip2Taula1Changed(equip);
+    seguentsUi->e2t1Label->setText(equip);
+    playingUi->e2t1Label->setText(equip);
 }
 
 void PantallaCrono::setEquip1Taula2(const QString &equip)
 {
-    equip1Taula2_ = equip;
-    updateWidgetsStatus();
-    emit equip1Taula2Changed(equip);
+    seguentsUi->e1t2Label->setText(equip);
+    playingUi->e1t2Label->setText(equip);
 }
 
 void PantallaCrono::setEquip2Taula2(const QString &equip)
 {
-    equip2Taula2_ = equip;
-    updateWidgetsStatus();
-    emit equip2Taula2Changed(equip);
+    seguentsUi->e2t2Label->setText(equip);
+    playingUi->e2t2Label->setText(equip);
 }
 
 void PantallaCrono::chronoTick(int temps)
 {
-    tempsCrono = temps;
-    if (estat_ == CRONO) {
-        playingUi->cronometre->updateTicks(temps);
-    }
-}
-
-void PantallaCrono::resizeEvent(QResizeEvent *event)
-{
-    Q_UNUSED(event);
-    //escalaImatge(idleUi->logoRobocat);
+    playingUi->cronometre->updateTicks(temps);
 }
 
 void PantallaCrono::keyPressEvent(QKeyEvent *event)
 {
+    event->accept();
     switch (event->key()) {
     case Qt::Key_F11:
         setWindowState(windowState() ^ Qt::WindowFullScreen);
@@ -133,39 +113,3 @@ void PantallaCrono::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void PantallaCrono::escalaImatge(ScalingImage *imatge)
-{
-    imatge->resize(imatge->width(), imatge->height());
-}
-
-void PantallaCrono::updateWidgetsStatus()
-{
-    switch (estat_) {
-    case IDLE:
-        break;
-    case SEGUENTS:
-        seguentsUi->e1t1Label->setText(equip1Taula1_);
-        seguentsUi->e2t1Label->setText(equip2Taula1_);
-        seguentsUi->e1t2Label->setText(equip1Taula2_);
-        seguentsUi->e2t2Label->setText(equip2Taula2_);
-        seguentsUi->taula1Widget->setVisible(taula1Enabled_);
-        seguentsUi->taula2Widget->setVisible(taula2Enabled_);
-        seguentsUi->seguentsLabel->setVisible(taula1Enabled_ || taula2Enabled_);
-        if (taula1Enabled_ == taula2Enabled_) {
-            seguentsUi->seguentsLabel->setText("Següents partides");
-        } else {
-            seguentsUi->seguentsLabel->setText("Següent partida");
-        }
-        break;
-    case CRONO:
-        playingUi->e1t1Label->setText(equip1Taula1_);
-        playingUi->e2t1Label->setText(equip2Taula1_);
-        playingUi->e1t2Label->setText(equip1Taula2_);
-        playingUi->e2t2Label->setText(equip2Taula2_);
-        playingUi->taula1Widget->setVisible(taula1Enabled_);
-        playingUi->taula2Widget->setVisible(taula2Enabled_);
-        playingUi->cronometre->warningTime = constants::WARN_TIME;
-        playingUi->cronometre->updateTicks(tempsCrono);
-        break;
-    }
-}
