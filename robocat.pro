@@ -49,7 +49,8 @@ HEADERS += \
     equipdialog.h \
     partidadialog.h \
     data_objects/partida.h \
-    pantallapuntuacio.h
+    pantallapuntuacio.h \
+    data_objects/equip.h
 
 FORMS += \
         mainwindow.ui \

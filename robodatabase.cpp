@@ -37,8 +37,8 @@ void RoboDatabase::populateInfoEquips(QSqlQueryModel *model)
     model->clear();
     model->setQuery(query);
     model->setHeaderData(0, Qt::Horizontal, "Nom", Qt::DisplayRole);
-    model->setHeaderData(1, Qt::Horizontal, "Punts totals", Qt::DisplayRole);
-    model->setHeaderData(2, Qt::Horizontal, "Partides jugades", Qt::DisplayRole);
+    model->setHeaderData(1, Qt::Horizontal, "Punts de classificació", Qt::DisplayRole);
+    model->setHeaderData(2, Qt::Horizontal, "Punts de desempat", Qt::DisplayRole);
 }
 
 void RoboDatabase::populateEquips(QSqlQueryModel *model)
@@ -71,7 +71,9 @@ void RoboDatabase::populatePartides(QSqlQueryModel *model)
     model->setHeaderData(6, Qt::Horizontal, "Bandera 2", Qt::DisplayRole);
     model->setHeaderData(7, Qt::Horizontal, "Extra 1", Qt::DisplayRole);
     model->setHeaderData(8, Qt::Horizontal, "Extra 2", Qt::DisplayRole);
-    model->setHeaderData(9, Qt::Horizontal, "Notes", Qt::DisplayRole);
+    model->setHeaderData(9, Qt::Horizontal, "TOTAL 1", Qt::DisplayRole);
+    model->setHeaderData(10, Qt::Horizontal, "TOTAL 2", Qt::DisplayRole);
+    model->setHeaderData(11, Qt::Horizontal, "Notes", Qt::DisplayRole);
 }
 
 #if 0
@@ -195,6 +197,24 @@ bool RoboDatabase::estaInicialitzada()
     QSqlDatabase db = QSqlDatabase::database();
     QStringList tables = db.tables();
     return tables.contains("equips") && tables.contains("partides");
+}
+
+Equip RoboDatabase::infoFromEquip(QString nomEquip)
+{
+    Equip e;
+    e.nom = nomEquip;
+    QSqlQuery query;
+    query.prepare(SentenciesSql::equips::selectInfoFromEquip);
+    query.bindValue(":nom", nomEquip);
+    if (!query.exec()) {
+        emit errorSql(query.lastError());
+        return e;
+    }
+    if (query.next()) {
+        e.puntsClassificacio = query.value(0).toInt();
+        e.puntsDesempat = query.value(1).toInt();
+    }
+    return e;
 }
 
 void RoboDatabase::inicialitzar()

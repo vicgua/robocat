@@ -3,6 +3,7 @@
 
 #include "data_objects/connectioninfo.h"
 #include "data_objects/partida.h"
+#include "data_objects/equip.h"
 #include "sentenciessql.h"
 #include <QString>
 #include <QObject>
@@ -27,6 +28,7 @@ public:
     void populatePartides(QSqlQueryModel *model);
     //void populatePartides(QVector<Partida> &partides);
     bool estaInicialitzada();
+    Equip infoFromEquip(QString nomEquip);
 
 signals:
     void errorSql(const QSqlError &error);

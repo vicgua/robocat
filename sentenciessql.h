@@ -28,12 +28,29 @@ QList<SqlPtr> initAll();
 namespace equips {
 constexpr SqlSentence selectEquipInfo = "SELECT\n"
                                         "    nom,\n"
-                                        "    punts_totals,\n"
-                                        "    partides_jugades\n"
+                                        "    punts_classificacio_totals,\n"
+                                        "    punts_desempat_totals\n"
                                         "FROM\n"
                                         "    classificacio_equips\n"
                                         "ORDER BY\n"
                                         "    nom ASC;\n";
+constexpr SqlSentence selectInfoFromEquip = "SELECT\n"
+                                            "    punts_classificacio_totals,\n"
+                                            "    punts_desempat_totals\n"
+                                            "FROM\n"
+                                            "    classificacio_equips\n"
+                                            "WHERE\n"
+                                            "    nom = :nom;\n";
+constexpr SqlSentence selectClassificacio = "SELECT\n"
+                                            "    nom,\n"
+                                            "    punts_classificacio_totals,\n"
+                                            "    punts_desempat_totals\n"
+                                            "FROM\n"
+                                            "    classificacio_equips\n"
+                                            "ORDER BY\n"
+                                            "    punts_classificacio_totals DESC,\n"
+                                            "    punts_desempat_totals DESC,\n"
+                                            "    nom ASC;\n";
 constexpr SqlSentence selectEquips = "SELECT\n"
                                      "    nom\n"
                                      "FROM\n"
@@ -60,6 +77,7 @@ constexpr SqlSentence deleteEquip = "DELETE\n"
 namespace partides {
 constexpr SqlSentence selectPartides = "SELECT\n"
                                        "    ronda,\n"
+                                       "    partida,\n"
                                        "    equip1,\n"
                                        "    equip2,\n"
                                        "    taps1,\n"
@@ -68,11 +86,14 @@ constexpr SqlSentence selectPartides = "SELECT\n"
                                        "    bandera2 = 25,\n"
                                        "    extra1,\n"
                                        "    extra2,\n"
+                                       "    total1,\n"
+                                       "    total2,\n"
                                        "    notes\n"
                                        "FROM\n"
-                                       "    partides\n"
+                                       "    punts_partides\n"
                                        "ORDER BY\n"
-                                       "    ronda DESC;\n";
+                                       "    ronda DESC,\n"
+                                       "    partida DESC;\n";
 }
 
 QString getSql(SqlPtr ptr);

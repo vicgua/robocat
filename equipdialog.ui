@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>271</width>
-    <height>165</height>
+    <width>341</width>
+    <height>158</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,42 +30,48 @@
       <widget class="QLineEdit" name="nom"/>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="puntsTotalsLabel">
+      <widget class="QLabel" name="puntsClassificacioLabel">
        <property name="text">
-        <string>Punts totals</string>
+        <string>Punts classificació</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="puntsTotals">
-       <property name="toolTip">
-        <string>No editable - atribut calculat</string>
-       </property>
-       <property name="text">
-        <string>0</string>
+      <widget class="QSpinBox" name="puntsClassificacio">
+       <property name="frame">
+        <bool>false</bool>
        </property>
        <property name="readOnly">
         <bool>true</bool>
+       </property>
+       <property name="buttonSymbols">
+        <enum>QAbstractSpinBox::NoButtons</enum>
+       </property>
+       <property name="suffix">
+        <string> punts</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="partidesJugadesLabel">
+      <widget class="QLabel" name="puntsDesempatLabel">
        <property name="text">
-        <string>Partides jugades</string>
+        <string>Punts desempat</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="partidesJugades">
-       <property name="toolTip">
-        <string>No editable - atribut calculat</string>
-       </property>
-       <property name="text">
-        <string>0</string>
+      <widget class="QSpinBox" name="puntsDesempat">
+       <property name="frame">
+        <bool>false</bool>
        </property>
        <property name="readOnly">
         <bool>true</bool>
+       </property>
+       <property name="buttonSymbols">
+        <enum>QAbstractSpinBox::NoButtons</enum>
+       </property>
+       <property name="suffix">
+        <string> punts</string>
        </property>
       </widget>
      </item>

@@ -12,9 +12,8 @@ PartidaDialog::PartidaDialog(QWidget *parent) :
 PartidaDialog::PartidaDialog(const Partida &partidaOriginal, QWidget *parent) :
     PartidaDialog(parent)
 {
-    pkOriginal_.ronda = partidaOriginal.ronda;
-    pkOriginal_.equip1 = partidaOriginal.equip1;
-    pkOriginal_.equip2 = partidaOriginal.equip2;
+    pkOriginal_.first = partidaOriginal.ronda;
+    pkOriginal_.second = partidaOriginal.partida;
     setPartida(partidaOriginal);
 }
 
@@ -32,6 +31,7 @@ void PartidaDialog::setPartida(const Partida &partida)
 void PartidaDialog::collectData()
 {
     partida_.ronda = ui->ronda->value();
+    partida_.partida = ui->partida->value();
     partida_.equip1 = ui->equip1->currentText();
     partida_.taps1 = ui->taps1->value();
     partida_.bandera1 = ui->bandera1->isChecked();
@@ -46,6 +46,7 @@ void PartidaDialog::collectData()
 void PartidaDialog::updateData()
 {
     ui->ronda->setValue(partida_.ronda);
+    ui->partida->setValue(partida_.partida);
     ui->equip1->setCurrentText(partida_.equip1);
     ui->taps1->setValue(partida_.taps1);
     ui->bandera1->setChecked(partida_.bandera1);

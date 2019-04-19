@@ -238,8 +238,9 @@ void MainWindow::modificarEquip()
 {
     QItemSelectionModel *selection = ui->taulaEquips->selectionModel();
     if (!selection->hasSelection()) return;
-    QString current = selection->selectedRows().at(0).data().toString();
-    EquipDialog dialog(current);
+    QModelIndexList current = selection->selectedRows();
+    EquipDialog dialog(current.at(0).data().toString());
+    dialog.queryInfo(db);
     if (dialog.exec() == QDialog::Accepted) {
         db->modificarEquip(dialog.nomOriginal(), dialog.nom());
     }

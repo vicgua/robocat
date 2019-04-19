@@ -3,13 +3,11 @@
 
 #include <QString>
 
-struct PartidaPk {
+struct Partida {
     int ronda;
+    int partida;
     QString equip1;
     QString equip2;
-};
-
-struct Partida : public PartidaPk {
     int taps1;
     int taps2;
     bool bandera1;

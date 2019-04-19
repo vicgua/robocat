@@ -26,14 +26,14 @@ QString EquipDialog::nom() const
     return ui->nom->text();
 }
 
-int EquipDialog::puntsTotals() const
+int EquipDialog::puntsClassificacio() const
 {
-    return ui->puntsTotals->text().toInt();
+    return ui->puntsClassificacio->value();
 }
 
-int EquipDialog::partidesJugades() const
+int EquipDialog::puntsDesempat() const
 {
-    return ui->partidesJugades->text().toInt();
+    return ui->puntsDesempat->value();
 }
 
 void EquipDialog::setNom(const QString &nom)
@@ -41,14 +41,22 @@ void EquipDialog::setNom(const QString &nom)
     ui->nom->setText(nom);
 }
 
-void EquipDialog::setPuntsTotals(int puntsTotals)
+void EquipDialog::setPuntsClassificacio(int puntsClassificacio)
 {
-    ui->puntsTotals->setText(QString::number(puntsTotals));
+    ui->puntsClassificacio->setValue(puntsClassificacio);
 }
 
-void EquipDialog::setPartidesJugades(int partidesJugades)
+void EquipDialog::setPuntsDesempat(int puntsDesempat)
 {
-    ui->partidesJugades->setText(QString::number(partidesJugades));
+    ui->puntsDesempat->setValue(puntsDesempat);
+}
+
+void EquipDialog::queryInfo(RoboDatabase *db)
+{
+    Equip e = db->infoFromEquip(nomOriginal_);
+    setNom(e.nom);
+    setPuntsClassificacio(e.puntsClassificacio);
+    setPuntsDesempat(e.puntsDesempat);
 }
 
 void EquipDialog::on_buttonBox_accepted()

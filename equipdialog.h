@@ -2,6 +2,7 @@
 #define EQUIPDIALOG_H
 
 #include <QDialog>
+#include "robodatabase.h"
 
 namespace Ui {
 class EquipDialog;
@@ -17,14 +18,15 @@ public:
     ~EquipDialog();
 
     QString nom() const;
-    int puntsTotals() const;
-    int partidesJugades() const;
+    int puntsClassificacio() const;
+    int puntsDesempat() const;
     QString nomOriginal() const { return nomOriginal_; }
 
 public slots:
     void setNom(const QString &nom);
-    void setPuntsTotals(int puntsTotals);
-    void setPartidesJugades(int partidesJugades);
+    void setPuntsClassificacio(int puntsClassificacio);
+    void setPuntsDesempat(int puntsDesempat);
+    void queryInfo(RoboDatabase *db);
 
 private:
     Ui::EquipDialog *ui;

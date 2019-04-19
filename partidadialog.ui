@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="partida">
+    <widget class="QGroupBox" name="grupPartida">
      <property name="title">
       <string>Partida</string>
      </property>
@@ -36,6 +36,16 @@
          <number>5</number>
         </property>
        </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="partidaLabel">
+        <property name="text">
+         <string>Partida</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="partida"/>
       </item>
      </layout>
     </widget>
