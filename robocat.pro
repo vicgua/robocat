@@ -65,3 +65,6 @@ FORMS += \
 RESOURCES += \
     resources.qrc \
     sql/sql.qrc
+
+DISTFILES += \
+    README.md
