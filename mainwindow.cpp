@@ -13,12 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connectDialog(new ConnectDialog),
     pantallaCrono(new PantallaCrono(this)),
     chrono(new QTimer(this)),
+    autoUpdateTimer(new QTimer(this)),
     db(new RoboDatabase),
     infoEquipsModel(new QSqlQueryModel),
     equipsModel(new QSqlQueryModel),
     partidesModel(new QSqlQueryModel)
 {
     ui->setupUi(this);
+
+    connect(autoUpdateTimer, &QTimer::timeout, this, &MainWindow::actualitzarDades);
 
     connect(chrono, &QTimer::timeout, this, &MainWindow::chronoTick);
     connect(this, &MainWindow::chronoTicked, pantallaCrono, &PantallaCrono::chronoTick);
@@ -70,6 +73,7 @@ MainWindow::~MainWindow()
     delete connectDialog;
     delete pantallaCrono;
     delete chrono;
+    delete autoUpdateTimer;
     delete db;
     delete infoEquipsModel;
     delete equipsModel;
@@ -110,6 +114,7 @@ void MainWindow::updateConnectat(bool connectat, bool inicialitzada)
     ui->actionTancar_connexio->setEnabled(connectat);
     ui->actionInicialitzar_BD->setEnabled(connectat);
     ui->actionActualitzar_BD->setEnabled(connectat && inicialitzada);
+    ui->actionAutoactualitzar->setEnabled(connectat && inicialitzada);
     ui->menuPantalles->setEnabled(connectat && inicialitzada);
 }
 
@@ -181,9 +186,19 @@ void MainWindow::canviBd(const ConnectionInfo &ci)
 
 void MainWindow::actualitzarDades()
 {
+    qDebug() << "Dades actualitzades";
     db->populateInfoEquips(infoEquipsModel);
     db->populateEquips(equipsModel);
     db->populatePartides(partidesModel);
+}
+
+void MainWindow::setAutoUpdate(bool autoUpdate)
+{
+    if (autoUpdate) {
+        autoUpdateTimer->start(30000); // 30 segons
+    } else {
+        autoUpdateTimer->stop();
+    }
 }
 
 void MainWindow::gestionarFiConnexio(bool exitosa)

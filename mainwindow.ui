@@ -363,6 +363,7 @@
     <addaction name="actionConnectar_a_BD"/>
     <addaction name="actionTancar_connexio"/>
     <addaction name="actionActualitzar_BD"/>
+    <addaction name="actionAutoactualitzar"/>
     <addaction name="separator"/>
     <addaction name="actionInicialitzar_BD"/>
     <addaction name="separator"/>
@@ -430,6 +431,14 @@
    </property>
    <property name="shortcut">
     <string>F5</string>
+   </property>
+  </action>
+  <action name="actionAutoactualitzar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Act&amp;ualitzar cada 30 segons</string>
    </property>
   </action>
  </widget>
@@ -736,6 +745,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAutoactualitzar</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setAutoUpdate(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>chronoTicked(int)</signal>
@@ -751,6 +776,7 @@
   <slot>afegirPartida()</slot>
   <slot>modificarPartida()</slot>
   <slot>eliminarPartida()</slot>
+  <slot>setAutoUpdate(bool)</slot>
  </slots>
  <buttongroups>
   <buttongroup name="estatPantallaCronoBg"/>

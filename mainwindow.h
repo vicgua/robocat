@@ -27,6 +27,7 @@ public slots:
     void stopChrono();
     void resetChrono();
     void actualitzarDades();
+    void setAutoUpdate(bool autoUpdate);
 
 signals:
     void chronoStarted();
@@ -39,6 +40,7 @@ private:
     ConnectDialog *connectDialog;
     PantallaCrono *pantallaCrono;
     QTimer* chrono;
+    QTimer* autoUpdateTimer;
     RoboDatabase *db;
     QSqlQueryModel *infoEquipsModel;
     QSqlQueryModel *equipsModel;
