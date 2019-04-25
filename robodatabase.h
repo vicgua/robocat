@@ -6,6 +6,7 @@
 #include "data_objects/equip.h"
 #include "sentenciessql.h"
 #include <QString>
+#include <QPair>
 #include <QObject>
 #include <QMap>
 #include <QSqlError>
@@ -29,6 +30,8 @@ public:
     //void populatePartides(QVector<Partida> &partides);
     bool estaInicialitzada();
     Equip infoFromEquip(QString nomEquip);
+    Partida infoFromPartida(const QPair<int, int> &pkPartida);
+    QPair<int, int> properaPartida();
 
 signals:
     void errorSql(const QSqlError &error);
@@ -44,6 +47,9 @@ public slots:
     void afegirEquip(const QString &nomEquip);
     void modificarEquip(const QString &nomAntic, const QString &nomNou);
     void eliminarEquip(const QString &nomEquip);
+    void afegirPartida(const Partida &partida);
+    void modificarPartida(const Partida &novaPartida, const QPair<int, int> &antigaPk);
+    void eliminarPartida(const QPair<int, int> &pk);
 
 private:
     bool connected;

@@ -9,12 +9,13 @@ PartidaDialog::PartidaDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
-PartidaDialog::PartidaDialog(const Partida &partidaOriginal, QWidget *parent) :
+PartidaDialog::PartidaDialog(const QPair<int, int> &pkOriginal, QWidget *parent) :
     PartidaDialog(parent)
 {
-    pkOriginal_.first = partidaOriginal.ronda;
-    pkOriginal_.second = partidaOriginal.partida;
-    setPartida(partidaOriginal);
+    pkOriginal_ = pkOriginal;
+    partida_.ronda = pkOriginal.first;
+    partida_.partida = pkOriginal.second;
+    updateData();
 }
 
 PartidaDialog::~PartidaDialog()
@@ -22,9 +23,29 @@ PartidaDialog::~PartidaDialog()
     delete ui;
 }
 
+const Partida &PartidaDialog::partida()
+{
+    collectData();
+    return partida_;
+}
+
 void PartidaDialog::setPartida(const Partida &partida)
 {
     partida_ = partida;
+    updateData();
+}
+
+void PartidaDialog::queryInfo(RoboDatabase *db)
+{
+    partida_ = db->infoFromPartida(pkOriginal_);
+    updateData();
+}
+
+void PartidaDialog::autoPartida(RoboDatabase *db)
+{
+    auto nova_partida = db->properaPartida();
+    partida_.ronda = nova_partida.first;
+    partida_.partida = nova_partida.second;
     updateData();
 }
 

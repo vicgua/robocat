@@ -69,6 +69,9 @@ private slots:
     void afegirEquip();
     void modificarEquip();
     void eliminarEquip();
+    void afegirPartida();
+    void modificarPartida();
+    void eliminarPartida();
     void desconnectaBd();
 };
 

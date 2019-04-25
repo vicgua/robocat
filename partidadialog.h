@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QPair>
 #include "data_objects/partida.h"
+#include "robodatabase.h"
 
 namespace Ui {
 class PartidaDialog;
@@ -16,14 +17,16 @@ class PartidaDialog : public QDialog
 
 public:
     explicit PartidaDialog(QWidget *parent = 0);
-    explicit PartidaDialog(const Partida &partidaOriginal, QWidget *parent = 0);
+    explicit PartidaDialog(const QPair<int, int> &pkOriginal, QWidget *parent = 0);
     ~PartidaDialog();
 
-    const Partida &partida() const { return partida_; }
+    const Partida &partida();
     QPair<int, int> pkOriginal() const { return pkOriginal_; }
 
 public slots:
     void setPartida(const Partida &partida);
+    void queryInfo(RoboDatabase *db);
+    void autoPartida(RoboDatabase *db);
 
 private:
     Ui::PartidaDialog *ui;

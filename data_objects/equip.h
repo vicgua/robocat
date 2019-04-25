@@ -5,8 +5,8 @@
 
 struct Equip {
     QString nom;
-    int puntsClassificacio;
-    int puntsDesempat;
+    int puntsClassificacio = 0;
+    int puntsDesempat = 0;
 };
 
 #endif // EQUIP_H

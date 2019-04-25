@@ -8,12 +8,12 @@ struct Partida {
     int partida;
     QString equip1;
     QString equip2;
-    int taps1;
-    int taps2;
-    bool bandera1;
-    bool bandera2;
-    int extra1;
-    int extra2;
+    int taps1 = 0;
+    int taps2 = 0;
+    bool bandera1 = false;
+    bool bandera2 = false;
+    int extra1 = 0;
+    int extra2 = 0;
     QString notes;
 
     int total1() const {

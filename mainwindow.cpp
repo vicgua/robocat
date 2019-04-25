@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QDebug>
 #include "equipdialog.h"
+#include "partidadialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -228,7 +229,7 @@ void MainWindow::obrePantallaCrono()
 
 void MainWindow::afegirEquip()
 {
-    EquipDialog dialog;
+    EquipDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
         db->afegirEquip(dialog.nom());
     }
@@ -239,7 +240,7 @@ void MainWindow::modificarEquip()
     QItemSelectionModel *selection = ui->taulaEquips->selectionModel();
     if (!selection->hasSelection()) return;
     QModelIndexList current = selection->selectedRows();
-    EquipDialog dialog(current.at(0).data().toString());
+    EquipDialog dialog(current.at(0).data().toString(), this);
     dialog.queryInfo(db);
     if (dialog.exec() == QDialog::Accepted) {
         db->modificarEquip(dialog.nomOriginal(), dialog.nom());
@@ -261,6 +262,48 @@ void MainWindow::eliminarEquip()
     dialog.setDefaultButton(QMessageBox::No);
     if (dialog.exec() == QMessageBox::Yes) {
         db->eliminarEquip(current);
+    }
+}
+
+void MainWindow::afegirPartida()
+{
+    PartidaDialog dialog(this);
+    dialog.autoPartida(db);
+    if (dialog.exec() == QDialog::Accepted) {
+        db->afegirPartida(dialog.partida());
+    }
+}
+
+void MainWindow::modificarPartida()
+{
+    QItemSelectionModel *selection = ui->taulaPartides->selectionModel();
+    if (!selection->hasSelection()) return;
+    QPair<int, int> pk;
+    pk.first = selection->selectedRows(0).at(0).data().toInt();
+    pk.second = selection->selectedRows(1).at(0).data().toInt();
+    PartidaDialog dialog(pk, this);
+    dialog.queryInfo(db);
+    if (dialog.exec() == QDialog::Accepted) {
+        db->modificarPartida(dialog.partida(), dialog.pkOriginal());
+    }
+}
+
+void MainWindow::eliminarPartida()
+{
+    QItemSelectionModel *selection = ui->taulaPartides->selectionModel();
+    if (!selection->hasSelection()) return;
+    QPair<int, int> pk;
+    pk.first = selection->selectedRows(0).at(0).data().toInt();
+    pk.second = selection->selectedRows(1).at(0).data().toInt();
+    QMessageBox dialog(this);
+    dialog.setIcon(QMessageBox::Question);
+    QString text = QString("<b>Esborrar la partida %1 de la ronda %2?</b>")
+            .arg(pk.second).arg(pk.first);
+    dialog.setText(text);
+    dialog.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    dialog.setDefaultButton(QMessageBox::No);
+    if (dialog.exec() == QMessageBox::Yes) {
+        db->eliminarPartida(pk);
     }
 }
 

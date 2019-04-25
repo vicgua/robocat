@@ -63,48 +63,19 @@ void RoboDatabase::populatePartides(QSqlQueryModel *model)
     model->clear();
     model->setQuery(query);
     model->setHeaderData(0, Qt::Horizontal, "Ronda", Qt::DisplayRole);
-    model->setHeaderData(1, Qt::Horizontal, "Equip 1", Qt::DisplayRole);
-    model->setHeaderData(2, Qt::Horizontal, "Equip 2", Qt::DisplayRole);
-    model->setHeaderData(3, Qt::Horizontal, "Taps 1", Qt::DisplayRole);
-    model->setHeaderData(4, Qt::Horizontal, "Taps 2", Qt::DisplayRole);
-    model->setHeaderData(5, Qt::Horizontal, "Bandera 1", Qt::DisplayRole);
-    model->setHeaderData(6, Qt::Horizontal, "Bandera 2", Qt::DisplayRole);
-    model->setHeaderData(7, Qt::Horizontal, "Extra 1", Qt::DisplayRole);
-    model->setHeaderData(8, Qt::Horizontal, "Extra 2", Qt::DisplayRole);
-    model->setHeaderData(9, Qt::Horizontal, "TOTAL 1", Qt::DisplayRole);
-    model->setHeaderData(10, Qt::Horizontal, "TOTAL 2", Qt::DisplayRole);
-    model->setHeaderData(11, Qt::Horizontal, "Notes", Qt::DisplayRole);
+    model->setHeaderData(1, Qt::Horizontal, "Partida", Qt::DisplayRole);
+    model->setHeaderData(2, Qt::Horizontal, "Equip 1", Qt::DisplayRole);
+    model->setHeaderData(3, Qt::Horizontal, "Equip 2", Qt::DisplayRole);
+    model->setHeaderData(4, Qt::Horizontal, "Taps 1", Qt::DisplayRole);
+    model->setHeaderData(5, Qt::Horizontal, "Taps 2", Qt::DisplayRole);
+    model->setHeaderData(6, Qt::Horizontal, "Bandera 1", Qt::DisplayRole);
+    model->setHeaderData(8, Qt::Horizontal, "Bandera 2", Qt::DisplayRole);
+    model->setHeaderData(9, Qt::Horizontal, "Extra 1", Qt::DisplayRole);
+    model->setHeaderData(9, Qt::Horizontal, "Extra 2", Qt::DisplayRole);
+    model->setHeaderData(10, Qt::Horizontal, "TOTAL 1", Qt::DisplayRole);
+    model->setHeaderData(11, Qt::Horizontal, "TOTAL 2", Qt::DisplayRole);
+    model->setHeaderData(12, Qt::Horizontal, "Notes", Qt::DisplayRole);
 }
-
-#if 0
-void RoboDatabase::populatePartides(QVector<Partida> &partides)
-{
-    QSqlQuery query;
-    if (!query.exec(SentenciesSql::partides::selectPartides)) {
-        emit errorSql(query.lastError());
-        return;
-    }
-    partides.clear();
-    int resultSize = query.size();
-    if (resultSize != -1) {
-        partides.reserve(resultSize);
-    }
-    while (query.next()) {
-        Partida p;
-        p.ronda = query.value(0).toInt();
-        p.equip1 = query.value(1).toString();
-        p.equip2 = query.value(2).toString();
-        p.taps1 = query.value(3).toInt();
-        p.taps2 = query.value(4).toInt();
-        p.bandera1 = query.value(5).toBool();
-        p.bandera2 = query.value(6).toBool();
-        p.extra1 = query.value(7).toInt();
-        p.extra2 = query.value(8).toInt();
-        p.notes = query.value(9).toString(); // Els NULLs es converteixen en strings buits
-        partides.append(p);
-    }
-}
-#endif
 
 void RoboDatabase::afegirEquip(const QString &nomEquip)
 {
@@ -143,54 +114,72 @@ void RoboDatabase::eliminarEquip(const QString &nomEquip)
     emit dataChanged();
 }
 
-/*void RoboDatabase::afegirEquip(const Equip &equip)
+void RoboDatabase::afegirPartida(const Partida &partida)
 {
-    QLatin1String sql("INSERT\n"
-                       "    INTO\n"
-                       "        equips(nom)\n"
-                       "    VALUES (:nom);\n");
     QSqlQuery query;
-    query.prepare(sql);
-    query.bindValue(":nom", equip.nomEquip());
+    query.prepare(SentenciesSql::partides::insertPartida);
+    query.bindValue(":ronda", partida.ronda);
+    query.bindValue(":partida", partida.partida);
+    query.bindValue(":equip1", partida.equip1);
+    query.bindValue(":equip2", partida.equip2);
+    query.bindValue(":taps1", partida.taps1);
+    query.bindValue(":taps2", partida.taps2);
+    query.bindValue(":bandera1", partida.bandera1);
+    query.bindValue(":bandera2", partida.bandera2);
+    query.bindValue(":extra1", partida.extra1);
+    query.bindValue(":extra2", partida.extra2);
+    if (partida.notes.isEmpty()) {
+        query.bindValue(":notes", QString(/* NULL */));
+    } else {
+        query.bindValue(":notes", partida.notes);
+    }
     if (!query.exec()) {
         emit errorSql(query.lastError());
+        return;
     }
     emit dataChanged();
 }
 
-void RoboDatabase::modificarEquip(const Equip &equip)
+void RoboDatabase::modificarPartida(const Partida &novaPartida, const QPair<int, int> &antigaPk)
 {
-    QLatin1String sql("UPDATE\n"
-                       "    equips\n"
-                       "SET\n"
-                       "    nom = :nomNou\n"
-                       "WHERE\n"
-                       "    nom = :nomOriginal;\n");
     QSqlQuery query;
-    query.prepare(sql);
-    query.bindValue(":nomNou", equip.nomEquip());
-    query.bindValue(":nomOriginal", equip.nomEquipOriginal());
+    query.prepare(SentenciesSql::partides::updatePartida);
+    query.bindValue(":ronda", novaPartida.ronda);
+    query.bindValue(":partida", novaPartida.partida);
+    query.bindValue(":equip1", novaPartida.equip1);
+    query.bindValue(":equip2", novaPartida.equip2);
+    query.bindValue(":taps1", novaPartida.taps1);
+    query.bindValue(":taps2", novaPartida.taps2);
+    query.bindValue(":bandera1", novaPartida.bandera1);
+    query.bindValue(":bandera2", novaPartida.bandera2);
+    query.bindValue(":extra1", novaPartida.extra1);
+    query.bindValue(":extra2", novaPartida.extra2);
+    if (novaPartida.notes.isEmpty()) {
+        query.bindValue(":notes", QString(/* NULL */));
+    } else {
+        query.bindValue(":notes", novaPartida.notes);
+    }
+    query.bindValue(":rondaOriginal", antigaPk.first);
+    query.bindValue(":partidaOriginal", antigaPk.second);
     if (!query.exec()) {
         emit errorSql(query.lastError());
+        return;
     }
     emit dataChanged();
 }
 
-void RoboDatabase::eliminarEquip(const Equip &equip)
+void RoboDatabase::eliminarPartida(const QPair<int, int> &pk)
 {
-    QLatin1String sql("DELETE\n"
-                       "FROM\n"
-                       "    equips\n"
-                       "WHERE\n"
-                       "    nom = :nom;\n");
     QSqlQuery query;
-    query.prepare(sql);
-    query.bindValue(":nom", equip.nomEquipOriginal());
+    query.prepare(SentenciesSql::partides::deletePartida);
+    query.bindValue(":ronda", pk.first);
+    query.bindValue(":ronda", pk.second);
     if (!query.exec()) {
         emit errorSql(query.lastError());
+        return;
     }
     emit dataChanged();
-}*/
+}
 
 bool RoboDatabase::estaInicialitzada()
 {
@@ -215,6 +204,49 @@ Equip RoboDatabase::infoFromEquip(QString nomEquip)
         e.puntsDesempat = query.value(1).toInt();
     }
     return e;
+}
+
+Partida RoboDatabase::infoFromPartida(const QPair<int, int> &pkPartida)
+{
+    Partida p;
+    p.ronda = pkPartida.first;
+    p.partida = pkPartida.second;
+    QSqlQuery query;
+    query.prepare(SentenciesSql::partides::selectInfoFromPartida);
+    query.bindValue(":ronda", pkPartida.first);
+    query.bindValue(":partida", pkPartida.second);
+    if (!query.exec()) {
+        emit errorSql(query.lastError());
+        return p;
+    }
+    if (query.next()) {
+        p.equip1 = query.value(0).toString();
+        p.equip2 = query.value(1).toString();
+        p.taps1 = query.value(2).toInt();
+        p.taps2 = query.value(3).toInt();
+        p.bandera1 = query.value(4).toBool();
+        p.bandera2 = query.value(5).toBool();
+        p.extra1 = query.value(6).toInt();
+        p.extra2 = query.value(7).toInt();
+        p.notes = query.value(8).toString();
+    }
+    return p;
+}
+
+QPair<int, int> RoboDatabase::properaPartida()
+{
+    QSqlQuery query;
+    QPair<int, int> pp(1, 1);
+    if (!query.exec(SentenciesSql::partides::selectProperaPartida)) {
+        emit errorSql(query.lastError());
+        return pp;
+    }
+    if (!query.next()) {
+        return pp;
+    }
+    pp.first = query.value(0).toInt();
+    pp.second = query.value(1).toInt();
+    return pp;
 }
 
 void RoboDatabase::inicialitzar()
