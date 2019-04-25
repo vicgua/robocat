@@ -68,5 +68,5 @@ void EquipDialog::on_buttonBox_accepted()
         errorDialog.exec();
         return;
     }
-    emit accept();
+    accept();
 }

@@ -173,13 +173,13 @@ constexpr SqlSentence deletePartida = "DELETE\n"
                                       "    AND partida = :partida;\n";
 constexpr SqlSentence selectProperaPartida =
         "SELECT\n"
-        "    partida,\n"
-        "    ronda + 1\n"
+        "    ronda,\n"
+        "    partida + 1\n"
         "FROM\n"
         "    partides\n"
         "ORDER BY\n"
-        "    partida DESC,\n"
-        "    ronda DESC\n"
+        "    ronda DESC,\n"
+        "    partida DESC\n"
         "LIMIT 1;\n";
 }
 

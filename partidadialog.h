@@ -27,6 +27,7 @@ public slots:
     void setPartida(const Partida &partida);
     void queryInfo(RoboDatabase *db);
     void autoPartida(RoboDatabase *db);
+    void setModel(QAbstractItemModel *model);
 
 private:
     Ui::PartidaDialog *ui;
@@ -36,6 +37,9 @@ private:
     void collectData();
     void updateData();
     bool sanityCheck(QStringList &errors);
+
+private slots:
+    void on_buttonBox_accepted();
 };
 
 #endif // PANTALLADIALOG_H

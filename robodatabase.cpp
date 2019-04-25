@@ -173,7 +173,7 @@ void RoboDatabase::eliminarPartida(const QPair<int, int> &pk)
     QSqlQuery query;
     query.prepare(SentenciesSql::partides::deletePartida);
     query.bindValue(":ronda", pk.first);
-    query.bindValue(":ronda", pk.second);
+    query.bindValue(":partida", pk.second);
     if (!query.exec()) {
         emit errorSql(query.lastError());
         return;

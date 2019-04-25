@@ -269,6 +269,7 @@ void MainWindow::afegirPartida()
 {
     PartidaDialog dialog(this);
     dialog.autoPartida(db);
+    dialog.setModel(equipsModel);
     if (dialog.exec() == QDialog::Accepted) {
         db->afegirPartida(dialog.partida());
     }
@@ -283,6 +284,7 @@ void MainWindow::modificarPartida()
     pk.second = selection->selectedRows(1).at(0).data().toInt();
     PartidaDialog dialog(pk, this);
     dialog.queryInfo(db);
+    dialog.setModel(equipsModel);
     if (dialog.exec() == QDialog::Accepted) {
         db->modificarPartida(dialog.partida(), dialog.pkOriginal());
     }

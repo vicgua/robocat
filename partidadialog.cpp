@@ -1,6 +1,7 @@
 #include "partidadialog.h"
 #include "ui_partidadialog.h"
 #include <QDebug>
+#include <QMessageBox>
 
 PartidaDialog::PartidaDialog(QWidget *parent) :
     QDialog(parent),
@@ -47,6 +48,12 @@ void PartidaDialog::autoPartida(RoboDatabase *db)
     partida_.ronda = nova_partida.first;
     partida_.partida = nova_partida.second;
     updateData();
+}
+
+void PartidaDialog::setModel(QAbstractItemModel *model)
+{
+    ui->equip1->setModel(model);
+    ui->equip2->setModel(model);
 }
 
 void PartidaDialog::collectData()
@@ -104,4 +111,24 @@ bool PartidaDialog::sanityCheck(QStringList &errors)
         errors.append("Es requereix afegir una nota com a justificació dels punts extra");
     }
     return ok;
+}
+
+void PartidaDialog::on_buttonBox_accepted()
+{
+    QStringList errors;
+    collectData();
+    if (!sanityCheck(errors)) {
+        QMessageBox errorDialog(this);
+        errorDialog.setIcon(QMessageBox::Warning);
+        if (errors.length() == 1) {
+            errorDialog.setText(errors.at(0));
+        } else {
+            QString text("S'han trobat els següents errors:\n - ");
+            text.append(errors.join("\n - "));
+            errorDialog.setText(text);
+        }
+        errorDialog.exec();
+        return;
+    }
+    accept();
 }
