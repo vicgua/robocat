@@ -31,6 +31,7 @@ PantallaCrono::PantallaCrono(QWidget *parent) :
     flags |= Qt::Window | Qt::CustomizeWindowHint | Qt::WindowFullscreenButtonHint;
     flags &= ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(flags);
+    setWindowTitle("Cronòmetre RoboCAT");
 
     playingUi->cronometre->warningTime = constants::WARN_TIME;
 }

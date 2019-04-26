@@ -77,6 +77,20 @@ void RoboDatabase::populatePartides(QSqlQueryModel *model)
     model->setHeaderData(12, Qt::Horizontal, "Notes", Qt::DisplayRole);
 }
 
+void RoboDatabase::populateClassificacio(QSqlQueryModel *model)
+{
+    QSqlQuery query;
+    if (!query.exec(SentenciesSql::partides::selectClassificacio)) {
+        emit errorSql(query.lastError());
+        return;
+    }
+    model->clear();
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, "Equip", Qt::DisplayRole);
+    model->setHeaderData(1, Qt::Horizontal, "Punts", Qt::DisplayRole);
+    model->setHeaderData(2, Qt::Horizontal, "Desempat", Qt::DisplayRole);
+}
+
 void RoboDatabase::afegirEquip(const QString &nomEquip)
 {
     QSqlQuery query;
@@ -247,6 +261,30 @@ QPair<int, int> RoboDatabase::properaPartida()
     pp.first = query.value(0).toInt();
     pp.second = query.value(1).toInt();
     return pp;
+}
+
+QVector<Partida> RoboDatabase::ultimesPartides()
+{
+    QSqlQuery query;
+    QVector<Partida> partides;
+    if (!query.exec(SentenciesSql::partides::selectUltimesPartides)) {
+        emit errorSql(query.lastError());
+        return partides;
+    }
+    partides.reserve(4);
+    while (query.next()) {
+        Partida p;
+        p.equip1 = query.value(0).toString();
+        p.equip2 = query.value(1).toString();
+        p.taps1 = query.value(2).toInt();
+        p.taps2 = query.value(3).toInt();
+        p.bandera1 = query.value(4).toBool();
+        p.bandera2 = query.value(5).toBool();
+        p.extra1 = query.value(6).toInt();
+        p.extra2 = query.value(6).toInt();
+        partides.append(p);
+    }
+    return partides;
 }
 
 void RoboDatabase::inicialitzar()

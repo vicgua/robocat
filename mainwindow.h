@@ -8,6 +8,7 @@
 #include "data_objects/connectioninfo.h"
 #include "robodatabase.h"
 #include "pantallacrono.h"
+#include "pantallapuntuacio.h"
 #include "constants.h"
 
 namespace Ui {
@@ -39,12 +40,14 @@ private:
     Ui::MainWindow *ui;
     ConnectDialog *connectDialog;
     PantallaCrono *pantallaCrono;
+    PantallaPuntuacio *pantallaPuntuacio;
     QTimer* chrono;
     QTimer* autoUpdateTimer;
     RoboDatabase *db;
     QSqlQueryModel *infoEquipsModel;
     QSqlQueryModel *equipsModel;
     QSqlQueryModel *partidesModel;
+    QSqlQueryModel *classificacioModel;
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
@@ -68,6 +71,7 @@ private slots:
     void errorSql(const QSqlError &error);
     void obreDialegInicialitzacio();
     void obrePantallaCrono();
+    void obrePantallaPuntuacio();
     void afegirEquip();
     void modificarEquip();
     void eliminarEquip();

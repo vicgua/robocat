@@ -181,6 +181,32 @@ constexpr SqlSentence selectProperaPartida =
         "    ronda DESC,\n"
         "    partida DESC\n"
         "LIMIT 1;\n";
+constexpr SqlSentence selectUltimesPartides =
+        "SELECT\n"
+        "    equip1,\n"
+        "    equip2,\n"
+        "    taps1,\n"
+        "    taps2,\n"
+        "    bandera1 = 25,\n"
+        "    bandera2 = 25,\n"
+        "    extra1,\n"
+        "    extra2\n"
+        "FROM\n"
+        "    partides\n"
+        "ORDER BY\n"
+        "    ronda DESC,\n"
+        "    partida DESC\n"
+        "LIMIT 4;\n";
+constexpr SqlSentence selectClassificacio = "SELECT\n"
+                                            "    nom,\n"
+                                            "    punts_classificacio_totals,\n"
+                                            "    punts_desempat_totals\n"
+                                            "FROM\n"
+                                            "    classificacio_equips\n"
+                                            "ORDER BY\n"
+                                            "    punts_classificacio_totals DESC,\n"
+                                            "    punts_desempat_totals DESC,\n"
+                                            "    nom ASC;\n";
 }
 
 QString getSql(SqlPtr ptr);

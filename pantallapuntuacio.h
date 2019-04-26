@@ -2,6 +2,11 @@
 #define PANTALLAPUNTUACIO_H
 
 #include <QWidget>
+#include <QLabel>
+#include <QVector>
+#include <QKeyEvent>
+#include <QAbstractItemModel>
+#include "partidadialog.h"
 
 namespace Ui {
 class PantallaPuntuacio;
@@ -15,8 +20,33 @@ public:
     explicit PantallaPuntuacio(QWidget *parent = 0);
     ~PantallaPuntuacio();
 
+public slots:
+    void setUltimesPartides(const QVector<Partida> &ultimesPartides);
+    void setModel(QAbstractItemModel* model);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
+
 private:
+    struct PartidaWidgetGroup {
+        QLabel *equip1, *taps1, *bandera1, *punts1;
+        QLabel *equip2, *taps2, *bandera2, *punts2;
+
+        PartidaWidgetGroup() = default;
+        PartidaWidgetGroup(QLabel *equip1, QLabel *taps1, QLabel *bandera1, QLabel *punts1,
+                           QLabel *equip2, QLabel *taps2, QLabel *bandera2, QLabel *punts2)
+            : equip1(equip1), taps1(taps1), bandera1(bandera1), punts1(punts1),
+              equip2(equip2), taps2(taps2), bandera2(bandera2), punts2(punts2) {}
+    };
+
+
     Ui::PantallaPuntuacio *ui;
+    QVector<Partida> ultimesPartides;
+    PartidaWidgetGroup ultimesWidgets[4];
+
+    void updatePartides();
+    void setPartida(PartidaWidgetGroup &group, const Partida &partida);
+    void desactivarTot();
 };
 
 #endif // PANTALLAPUNTUACIO_H

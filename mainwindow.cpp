@@ -3,7 +3,6 @@
 
 #include <QMessageBox>
 #include <QColor>
-#include <QDebug>
 #include "equipdialog.h"
 #include "partidadialog.h"
 
@@ -12,12 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     connectDialog(new ConnectDialog),
     pantallaCrono(new PantallaCrono(this)),
+    pantallaPuntuacio(new PantallaPuntuacio(this)),
     chrono(new QTimer(this)),
     autoUpdateTimer(new QTimer(this)),
     db(new RoboDatabase),
     infoEquipsModel(new QSqlQueryModel),
     equipsModel(new QSqlQueryModel),
-    partidesModel(new QSqlQueryModel)
+    partidesModel(new QSqlQueryModel),
+    classificacioModel(new QSqlQueryModel)
 {
     ui->setupUi(this);
 
@@ -57,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pantallaCronoE2T2->setModel(equipsModel);
     ui->taulaPartides->setModel(partidesModel);
 
+    pantallaPuntuacio->setModel(classificacioModel);
+
     pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->isChecked());
     pantallaCrono->setEquip1Taula1(ui->pantallaCronoE1T1->currentText());
     pantallaCrono->setEquip2Taula1(ui->pantallaCronoE2T1->currentText());
@@ -72,12 +75,14 @@ MainWindow::~MainWindow()
     delete ui;
     delete connectDialog;
     delete pantallaCrono;
+    delete pantallaPuntuacio;
     delete chrono;
     delete autoUpdateTimer;
     delete db;
     delete infoEquipsModel;
     delete equipsModel;
     delete partidesModel;
+    delete classificacioModel;
 }
 
 void MainWindow::startChrono()
@@ -186,10 +191,11 @@ void MainWindow::canviBd(const ConnectionInfo &ci)
 
 void MainWindow::actualitzarDades()
 {
-    qDebug() << "Dades actualitzades";
     db->populateInfoEquips(infoEquipsModel);
     db->populateEquips(equipsModel);
     db->populatePartides(partidesModel);
+    db->populateClassificacio(classificacioModel);
+    pantallaPuntuacio->setUltimesPartides(db->ultimesPartides());
 }
 
 void MainWindow::setAutoUpdate(bool autoUpdate)
@@ -240,6 +246,11 @@ void MainWindow::obreDialegInicialitzacio()
 void MainWindow::obrePantallaCrono()
 {
     pantallaCrono->show();
+}
+
+void MainWindow::obrePantallaPuntuacio()
+{
+    pantallaPuntuacio->show();
 }
 
 void MainWindow::afegirEquip()
