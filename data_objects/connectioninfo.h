@@ -6,6 +6,7 @@
 struct ConnectionInfo {
     QString dbDriver;
     QString hostname;
+    int port;
     QString database;
     QString username;
     QString password;

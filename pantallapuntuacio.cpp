@@ -42,11 +42,8 @@ void PantallaPuntuacio::setUltimesPartides(const QVector<Partida> &ultimesPartid
     updatePartides();
 }
 
-#include <QDebug>
-
 void PantallaPuntuacio::setModel(QAbstractItemModel *model)
 {
-    qDebug() << "Model set:" << model;
     ui->taulaClassificacio->setModel(model);
 }
 

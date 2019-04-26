@@ -10,6 +10,7 @@ void RoboDatabase::setup(const ConnectionInfo &ci)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase(ci.dbDriver);
     db.setHostName(ci.hostname);
+    db.setPort(ci.port);
     db.setDatabaseName(ci.database);
     db.setUserName(ci.username);
     db.setPassword(ci.password);
@@ -315,6 +316,7 @@ void RoboDatabase::iniciaConnexio()
         emit connexioFinalitzada(true);
     } else {
         connected = false;
+        db.close();
         emit connexioFinalitzada(false);
         emit errorSql(db.lastError());
     }

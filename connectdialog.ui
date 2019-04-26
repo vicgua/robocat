@@ -40,15 +40,19 @@
        </item>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="dbLab">
        <property name="text">
         <string>Base de dades</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="dbInp"/>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="dbInp">
+       <property name="text">
+        <string>robocat</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="hostLab">
@@ -58,29 +62,54 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="hostInp"/>
+      <widget class="QLineEdit" name="hostInp">
+       <property name="text">
+        <string>localhost</string>
+       </property>
+      </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="userLab">
        <property name="text">
         <string>Nom d'usuari</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="userInp"/>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="userInp">
+       <property name="text">
+        <string>robocat</string>
+       </property>
+      </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="passwordLab">
        <property name="text">
         <string>Contrasenya</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QLineEdit" name="passwordInp">
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="portLab">
+       <property name="text">
+        <string>Port</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QSpinBox" name="portInp">
+       <property name="maximum">
+        <number>65535</number>
+       </property>
+       <property name="value">
+        <number>5432</number>
        </property>
       </widget>
      </item>
@@ -98,6 +127,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>dbmsInp</tabstop>
+  <tabstop>hostInp</tabstop>
+  <tabstop>portInp</tabstop>
+  <tabstop>dbInp</tabstop>
+  <tabstop>userInp</tabstop>
+  <tabstop>passwordInp</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

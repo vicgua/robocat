@@ -12,7 +12,7 @@ CREATE TABLE partides (
     extra1 INTEGER NOT NULL DEFAULT 0,
     extra2 INTEGER NOT NULL DEFAULT 0,
     -- Notes a fer constar a la base de dades
-    notes CLOB DEFAULT NULL,
+    notes TEXT DEFAULT NULL,
     PRIMARY KEY (ronda, partida),
     CONSTRAINT equips_diferents CHECK (equip1 <> equip2),
     CONSTRAINT num_taps_possible CHECK (taps1 + taps2 <= 200),

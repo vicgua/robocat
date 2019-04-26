@@ -23,6 +23,7 @@ private:
     Ui::ConnectDialog *ui;
     QString cDriver;
     bool hasHost;
+    bool hasPort;
     bool hasDatabase;
     bool hasUsername;
     bool hasPassword;

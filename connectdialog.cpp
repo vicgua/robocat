@@ -20,14 +20,18 @@ ConnectDialog::~ConnectDialog()
 void ConnectDialog::on_dbmsInp_currentIndexChanged(const QString &newDbms)
 {
     if (newDbms == "PostgreSQL") {
+        if (cDriver == "PSQL") return;
         cDriver = "QPSQL";
         hasHost = true;
+        hasPort = true;
         hasDatabase = true;
         hasUsername = true;
         hasPassword = true;
     } else if (newDbms == "SQLite") {
+        if (cDriver == "QSQLITE") return;
         cDriver = "QSQLITE";
         hasHost = false;
+        hasPort = false;
         hasDatabase = true;
         hasUsername = false;
         hasPassword = false;
@@ -56,6 +60,7 @@ void ConnectDialog::on_buttonBox_accepted()
     ConnectionInfo ci;
     ci.dbDriver = cDriver;
     ci.hostname = ui->hostInp->text();
+    ci.port = ui->portInp->value();
     ci.database = ui->dbInp->text();
     ci.username = ui->userInp->text();
     ci.password = ui->passwordInp->text();
@@ -68,6 +73,9 @@ void ConnectDialog::updateFields()
     ui->hostLab->setEnabled(hasHost);
     ui->hostInp->setEnabled(hasHost);
 
+    ui->portLab->setEnabled(hasPort);
+    ui->portInp->setEnabled(hasPort);
+
     ui->dbLab->setEnabled(hasDatabase);
     ui->dbInp->setEnabled(hasDatabase);
 
@@ -76,6 +84,12 @@ void ConnectDialog::updateFields()
 
     ui->passwordLab->setEnabled(hasPassword);
     ui->passwordInp->setEnabled(hasPassword);
+
+    if (cDriver == "QPSQL" && ui->dbInp->text() == "robocat.db") {
+        ui->dbInp->setText("robocat");
+    } else if (cDriver == "QSQLITE" && ui->dbInp->text() == "robocat") {
+        ui->dbInp->setText("robocat.db");
+    }
 }
 
 bool ConnectDialog::sanityCheck(QStringList &errors) const

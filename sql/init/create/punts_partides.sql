@@ -5,4 +5,4 @@ CREATE VIEW punts_partides AS
     FROM (
         SELECT *, (taps1 + bandera1 + extra1) AS total1, (taps2 + bandera2 + extra2) AS total2
         FROM partides
-    );
+    ) AS punts_per_partida;
