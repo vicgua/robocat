@@ -282,7 +282,7 @@ QVector<Partida> RoboDatabase::ultimesPartides()
         p.bandera1 = query.value(4).toBool();
         p.bandera2 = query.value(5).toBool();
         p.extra1 = query.value(6).toInt();
-        p.extra2 = query.value(6).toInt();
+        p.extra2 = query.value(7).toInt();
         partides.append(p);
     }
     return partides;
