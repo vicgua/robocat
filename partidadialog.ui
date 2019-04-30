@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>558</width>
-    <height>566</height>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
          <number>1</number>
         </property>
         <property name="maximum">
-         <number>5</number>
+         <number>9</number>
         </property>
        </widget>
       </item>
@@ -75,9 +75,6 @@
       </item>
       <item row="1" column="1">
        <widget class="QSpinBox" name="taps1">
-        <property name="suffix">
-         <string> taps</string>
-        </property>
         <property name="maximum">
          <number>200</number>
         </property>
@@ -117,9 +114,6 @@
       </item>
       <item row="3" column="1">
        <widget class="QSpinBox" name="extra1">
-        <property name="suffix">
-         <string> punts</string>
-        </property>
         <property name="minimum">
          <number>-9999</number>
         </property>
@@ -156,9 +150,6 @@
       </item>
       <item row="1" column="1">
        <widget class="QSpinBox" name="taps2">
-        <property name="suffix">
-         <string> taps</string>
-        </property>
         <property name="maximum">
          <number>200</number>
         </property>
@@ -198,9 +189,6 @@
       </item>
       <item row="3" column="1">
        <widget class="QSpinBox" name="extra2">
-        <property name="suffix">
-         <string> punts</string>
-        </property>
         <property name="minimum">
          <number>-9999</number>
         </property>
