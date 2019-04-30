@@ -353,7 +353,7 @@
      <x>0</x>
      <y>0</y>
      <width>521</width>
-     <height>25</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArxiu">
@@ -401,7 +401,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>&amp;Tancar connexió</string>
+    <string>&amp;Tancar connexió (NO FUNCIONA)</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>

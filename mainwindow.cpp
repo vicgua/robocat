@@ -116,7 +116,7 @@ void MainWindow::updateChronoButtons(bool running)
 void MainWindow::updateConnectat(bool connectat, bool inicialitzada)
 {
     ui->tabWidget->setEnabled(connectat && inicialitzada);
-    ui->actionTancar_connexio->setEnabled(connectat);
+    ui->actionTancar_connexio->setEnabled(connectat && false); // No funciona (bug #1)
     ui->actionInicialitzar_BD->setEnabled(connectat);
     ui->actionActualitzar_BD->setEnabled(connectat && inicialitzada);
     ui->actionAutoactualitzar->setEnabled(connectat && inicialitzada);
