@@ -64,10 +64,12 @@ void PartidaDialog::collectData()
     partida_.taps1 = ui->taps1->value();
     partida_.bandera1 = ui->bandera1->isChecked();
     partida_.extra1 = ui->extra1->value();
+    partida_.valid1 = ui->valid1->isChecked();
     partida_.equip2 = ui->equip2->currentText();
     partida_.taps2 = ui->taps2->value();
     partida_.bandera2 = ui->bandera2->isChecked();
     partida_.extra2 = ui->extra2->value();
+    partida_.valid2 = ui->valid2->isChecked();
     partida_.notes = ui->notes->toPlainText();
 }
 
@@ -79,10 +81,12 @@ void PartidaDialog::updateData()
     ui->taps1->setValue(partida_.taps1);
     ui->bandera1->setChecked(partida_.bandera1);
     ui->extra1->setValue(partida_.extra1);
+    ui->valid1->setChecked(partida_.valid1);
     ui->equip2->setCurrentText(partida_.equip2);
     ui->taps2->setValue(partida_.taps2);
     ui->bandera2->setChecked(partida_.bandera2);
     ui->extra2->setValue(partida_.extra2);
+    ui->valid2->setChecked(partida_.valid2);
     ui->notes->setPlainText(partida_.notes);
 }
 
@@ -109,6 +113,10 @@ bool PartidaDialog::sanityCheck(QStringList &errors)
     if ((partida_.extra1 != 0 || partida_.extra2 != 0) && partida_.notes.isEmpty()) {
         ok = false;
         errors.append("Es requereix afegir una nota com a justificació dels punts extra");
+    }
+    if ((!partida_.valid1 || !partida_.valid2) && partida_.notes.isEmpty()) {
+        ok = false;
+        errors.append("Es requereix afegir una nota com a justificació de la invalidació");
     }
     return ok;
 }

@@ -122,6 +122,31 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="valid1Label">
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Si no es marca, la partida es considerarà invàlida (0 punts i derrota automàtica)</string>
+        </property>
+        <property name="text">
+         <string>Vàlid</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="valid1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -197,6 +222,31 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="valid2Label">
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Si no es marca, la partida es considerarà invàlida (0 punts i derrota automàtica)</string>
+        </property>
+        <property name="text">
+         <string>Vàlid</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="valid2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -228,8 +278,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>304</x>
-     <y>556</y>
+     <x>313</x>
+     <y>585</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

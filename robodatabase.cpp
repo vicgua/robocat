@@ -70,12 +70,14 @@ void RoboDatabase::populatePartides(QSqlQueryModel *model)
     model->setHeaderData(4, Qt::Horizontal, "Taps 1", Qt::DisplayRole);
     model->setHeaderData(5, Qt::Horizontal, "Taps 2", Qt::DisplayRole);
     model->setHeaderData(6, Qt::Horizontal, "Bandera 1", Qt::DisplayRole);
-    model->setHeaderData(8, Qt::Horizontal, "Bandera 2", Qt::DisplayRole);
-    model->setHeaderData(9, Qt::Horizontal, "Extra 1", Qt::DisplayRole);
-    model->setHeaderData(9, Qt::Horizontal, "Extra 2", Qt::DisplayRole);
-    model->setHeaderData(10, Qt::Horizontal, "TOTAL 1", Qt::DisplayRole);
-    model->setHeaderData(11, Qt::Horizontal, "TOTAL 2", Qt::DisplayRole);
-    model->setHeaderData(12, Qt::Horizontal, "Notes", Qt::DisplayRole);
+    model->setHeaderData(7, Qt::Horizontal, "Bandera 2", Qt::DisplayRole);
+    model->setHeaderData(8, Qt::Horizontal, "Vàlida 1", Qt::DisplayRole);
+    model->setHeaderData(9, Qt::Horizontal, "Vàlida 2", Qt::DisplayRole);
+    model->setHeaderData(10, Qt::Horizontal, "Extra 1", Qt::DisplayRole);
+    model->setHeaderData(11, Qt::Horizontal, "Extra 2", Qt::DisplayRole);
+    model->setHeaderData(12, Qt::Horizontal, "TOTAL 1", Qt::DisplayRole);
+    model->setHeaderData(13, Qt::Horizontal, "TOTAL 2", Qt::DisplayRole);
+    model->setHeaderData(14, Qt::Horizontal, "Notes", Qt::DisplayRole);
 }
 
 void RoboDatabase::populateClassificacio(QSqlQueryModel *model)
@@ -141,6 +143,8 @@ void RoboDatabase::afegirPartida(const Partida &partida)
     query.bindValue(":taps2", partida.taps2);
     query.bindValue(":bandera1", partida.bandera1);
     query.bindValue(":bandera2", partida.bandera2);
+    query.bindValue(":valid1", partida.valid1);
+    query.bindValue(":valid2", partida.valid2);
     query.bindValue(":extra1", partida.extra1);
     query.bindValue(":extra2", partida.extra2);
     if (partida.notes.isEmpty()) {
@@ -167,6 +171,8 @@ void RoboDatabase::modificarPartida(const Partida &novaPartida, const QPair<int,
     query.bindValue(":taps2", novaPartida.taps2);
     query.bindValue(":bandera1", novaPartida.bandera1);
     query.bindValue(":bandera2", novaPartida.bandera2);
+    query.bindValue(":valid1", novaPartida.valid1);
+    query.bindValue(":valid2", novaPartida.valid2);
     query.bindValue(":extra1", novaPartida.extra1);
     query.bindValue(":extra2", novaPartida.extra2);
     if (novaPartida.notes.isEmpty()) {
@@ -241,9 +247,11 @@ Partida RoboDatabase::infoFromPartida(const QPair<int, int> &pkPartida)
         p.taps2 = query.value(3).toInt();
         p.bandera1 = query.value(4).toBool();
         p.bandera2 = query.value(5).toBool();
-        p.extra1 = query.value(6).toInt();
-        p.extra2 = query.value(7).toInt();
-        p.notes = query.value(8).toString();
+        p.valid1 = query.value(6).toBool();
+        p.valid2 = query.value(7).toBool();
+        p.extra1 = query.value(8).toInt();
+        p.extra2 = query.value(9).toInt();
+        p.notes = query.value(10).toString();
     }
     return p;
 }
@@ -281,8 +289,10 @@ QVector<Partida> RoboDatabase::ultimesPartides()
         p.taps2 = query.value(3).toInt();
         p.bandera1 = query.value(4).toBool();
         p.bandera2 = query.value(5).toBool();
-        p.extra1 = query.value(6).toInt();
-        p.extra2 = query.value(7).toInt();
+        p.valid1 = query.value(6).toBool();
+        p.valid2 = query.value(7).toBool();
+        p.extra1 = query.value(8).toInt();
+        p.extra2 = query.value(9).toInt();
         partides.append(p);
     }
     return partides;

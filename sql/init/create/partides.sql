@@ -7,6 +7,9 @@ CREATE TABLE partides (
     taps2 SMALLINT NOT NULL CONSTRAINT taps2_valid CHECK (taps2 >= 0),
     bandera1 SMALLINT NOT NULL CONSTRAINT bandera1_valida CHECK (bandera1 = 0 OR bandera1 = 25),
     bandera2 SMALLINT NOT NULL CONSTRAINT bandera2_valida CHECK (bandera2 = 0 OR bandera2 = 25),
+    -- Aquests booleans permeten anul·lar una partida d'un equip
+    valid1 BOOLEAN NOT NULL DEFAULT TRUE,
+    valid2 BOOLEAN NOT NULL DEFAULT TRUE,
     -- Aquests punts permeten modificar manualment les puntuacions en cas d'una fallada del sistema
     -- o d'un imprevist durant la competició
     extra1 INTEGER NOT NULL DEFAULT 0,
@@ -16,5 +19,6 @@ CREATE TABLE partides (
     PRIMARY KEY (ronda, partida),
     CONSTRAINT equips_diferents CHECK (equip1 <> equip2),
     CONSTRAINT num_taps_possible CHECK (taps1 + taps2 <= 200),
+    CONSTRAINT invalidacions_justificades CHECK (notes IS NOT NULL OR (valid1 AND valid2)),
     CONSTRAINT modificacions_justificades CHECK (notes IS NOT NULL OR (extra1 = 0 AND extra2 = 0))
 );
