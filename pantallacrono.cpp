@@ -50,53 +50,38 @@ void PantallaCrono::setPantalla(PantallaCrono::Pantalles pantalla)
 
 void PantallaCrono::setTaula1Enabled(bool enabled)
 {
+    t1Enabled = enabled;
     seguentsUi->taula1Widget->setVisible(enabled);
     playingUi->taula1Widget->setVisible(enabled);
-    if (enabled == seguentsUi->taula2Widget->isVisible()) {
-        seguentsUi->seguentsLabel->setText("Següents partides");
-    } else {
-        seguentsUi->seguentsLabel->setText("Següent partida");
-    }
+    actualitzarTextSeguents();
 }
 
 void PantallaCrono::setTaula2Enabled(bool enabled)
 {
+    t2Enabled = enabled;
     seguentsUi->taula2Widget->setVisible(enabled);
     playingUi->taula2Widget->setVisible(enabled);
-    if (enabled == seguentsUi->taula1Widget->isVisible()) {
-        seguentsUi->seguentsLabel->setText("Següents partides");
-    } else {
-        seguentsUi->seguentsLabel->setText("Següent partida");
-    }
-}
-
-void PantallaCrono::setEquip1Taula1(const QString &equip)
-{
-    seguentsUi->e1t1Label->setText(equip);
-    playingUi->e1t1Label->setText(equip);
-}
-
-void PantallaCrono::setEquip2Taula1(const QString &equip)
-{
-    seguentsUi->e2t1Label->setText(equip);
-    playingUi->e2t1Label->setText(equip);
-}
-
-void PantallaCrono::setEquip1Taula2(const QString &equip)
-{
-    seguentsUi->e1t2Label->setText(equip);
-    playingUi->e1t2Label->setText(equip);
-}
-
-void PantallaCrono::setEquip2Taula2(const QString &equip)
-{
-    seguentsUi->e2t2Label->setText(equip);
-    playingUi->e2t2Label->setText(equip);
+    actualitzarTextSeguents();
 }
 
 void PantallaCrono::chronoTick(int temps)
 {
     playingUi->cronometre->updateTicks(temps);
+}
+
+void PantallaCrono::setEquips(const QString equips[2][2])
+{
+    seguentsUi->e1t1Label->setText(equips[0][0]);
+    playingUi->e1t1Label->setText(equips[0][0]);
+
+    seguentsUi->e2t1Label->setText(equips[0][1]);
+    playingUi->e2t1Label->setText(equips[0][1]);
+
+    seguentsUi->e1t2Label->setText(equips[1][0]);
+    playingUi->e1t2Label->setText(equips[1][0]);
+
+    seguentsUi->e2t2Label->setText(equips[1][1]);
+    playingUi->e2t2Label->setText(equips[1][1]);
 }
 
 void PantallaCrono::keyPressEvent(QKeyEvent *event)
@@ -111,6 +96,18 @@ void PantallaCrono::keyPressEvent(QKeyEvent *event)
         break;
     default:
         event->ignore();
+    }
+}
+
+void PantallaCrono::actualitzarTextSeguents()
+{
+    int nEnabled = 0;
+    if (t1Enabled) ++nEnabled;
+    if (t2Enabled) ++nEnabled;
+    if (nEnabled == 1) {
+        seguentsUi->seguentsLabel->setText("Següent partida");
+    } else {
+        seguentsUi->seguentsLabel->setText("Següents partides");
     }
 }
 

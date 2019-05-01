@@ -25,7 +25,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabEquips">
        <attribute name="title">
@@ -496,8 +496,8 @@
    <slot>startChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>338</y>
+     <x>132</x>
+     <y>334</y>
     </hint>
     <hint type="destinationlabel">
      <x>94</x>
@@ -512,8 +512,8 @@
    <slot>stopChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>282</x>
-     <y>338</y>
+     <x>336</x>
+     <y>334</y>
     </hint>
     <hint type="destinationlabel">
      <x>223</x>
@@ -528,8 +528,8 @@
    <slot>resetChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>443</x>
-     <y>338</y>
+     <x>499</x>
+     <y>334</y>
     </hint>
     <hint type="destinationlabel">
      <x>351</x>
@@ -576,12 +576,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>138</y>
+     <x>104</x>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel">
-     <x>403</x>
-     <y>140</y>
+     <x>399</x>
+     <y>137</y>
     </hint>
    </hints>
   </connection>
@@ -592,12 +592,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>138</y>
+     <x>104</x>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel">
      <x>499</x>
-     <y>140</y>
+     <y>137</y>
     </hint>
    </hints>
   </connection>
@@ -608,12 +608,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>175</y>
+     <x>104</x>
+     <y>173</y>
     </hint>
     <hint type="destinationlabel">
-     <x>403</x>
-     <y>176</y>
+     <x>399</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
@@ -624,12 +624,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>175</y>
+     <x>104</x>
+     <y>173</y>
     </hint>
     <hint type="destinationlabel">
      <x>499</x>
-     <y>176</y>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
@@ -641,7 +641,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>499</x>
-     <y>145</y>
+     <y>141</y>
     </hint>
     <hint type="destinationlabel">
      <x>516</x>
@@ -657,7 +657,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>499</x>
-     <y>221</y>
+     <y>217</y>
     </hint>
     <hint type="destinationlabel">
      <x>516</x>
@@ -689,7 +689,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>499</x>
-     <y>297</y>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>516</x>
@@ -777,6 +777,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pantallaCronoE1T1</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>equipsActualsCanviats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>343</x>
+     <y>32</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoE2T1</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>equipsActualsCanviats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>465</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>517</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoE1T2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>equipsActualsCanviats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>516</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoE2T2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>equipsActualsCanviats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>462</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>515</x>
+     <y>96</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>chronoTicked(int)</signal>
@@ -794,6 +858,7 @@
   <slot>eliminarPartida()</slot>
   <slot>setAutoUpdate(bool)</slot>
   <slot>obrePantallaPuntuacio()</slot>
+  <slot>equipsActualsCanviats()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="estatPantallaCronoBg"/>

@@ -32,11 +32,8 @@ public slots:
 
     void setTaula1Enabled(bool enabled);
     void setTaula2Enabled(bool enabled);
-    void setEquip1Taula1(const QString &equip);
-    void setEquip2Taula1(const QString &equip);
-    void setEquip1Taula2(const QString &equip);
-    void setEquip2Taula2(const QString &equip);
     void chronoTick(int temps);
+    void setEquips(const QString equips[2][2]);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -46,6 +43,8 @@ private:
     Ui::CronoIdle *idleUi;
     Ui::CronoSeguents *seguentsUi;
     Ui::CronoPlaying *playingUi;
+    bool t1Enabled, t2Enabled;
+    void actualitzarTextSeguents();
 };
 
 #endif // PANTALLACRONO_H

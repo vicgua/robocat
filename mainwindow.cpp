@@ -34,11 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pantallaCronoSeguents, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setSeguents()));
     connect(ui->pantallaCronoCronometre, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setCrono()));
     connect(ui->pantallaCronoTaula1, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula1Enabled(bool)));
-    connect(ui->pantallaCronoE1T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula1(QString)));
-    connect(ui->pantallaCronoE2T1, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip2Taula1(QString)));
     connect(ui->pantallaCronoTaula2, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula2Enabled(bool)));
-    connect(ui->pantallaCronoE1T2, SIGNAL(currentIndexChanged(QString)), pantallaCrono, SLOT(setEquip1Taula2(QString)));
-    connect(ui->pantallaCronoE2T2, SIGNAL(currentTextChanged(QString)), pantallaCrono, SLOT(setEquip2Taula2(QString)));
 
     connect(ui->actionConnectar_a_BD, SIGNAL(triggered()), connectDialog, SLOT(exec()));
     connect(ui->actionTancar_connexio, SIGNAL(triggered()), this, SLOT(desconnectaBd())); // TODO
@@ -60,12 +56,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pantallaPuntuacio->setModel(classificacioModel);
 
+    for (auto &taula : equipsActuals) {
+        for (auto &e : taula) {
+            e = QString();
+        }
+    }
+    equipsActualsCanviats();
     pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->isChecked());
-    pantallaCrono->setEquip1Taula1(ui->pantallaCronoE1T1->currentText());
-    pantallaCrono->setEquip2Taula1(ui->pantallaCronoE2T1->currentText());
     pantallaCrono->setTaula2Enabled(ui->pantallaCronoTaula2->isChecked());
-    pantallaCrono->setEquip1Taula2(ui->pantallaCronoE1T2->currentText());
-    pantallaCrono->setEquip2Taula2(ui->pantallaCronoE2T2->currentText());
 
     canviEstatBd(NO_CONNECTADA);
 }
@@ -138,6 +136,15 @@ void MainWindow::resetModels()
     equipsModel = nouEquipsModel;
 }
 
+void MainWindow::refreshEquipsActuals()
+{
+    ui->pantallaCronoE1T1->setCurrentText(equipsActuals[0][0]);
+    ui->pantallaCronoE2T1->setCurrentText(equipsActuals[0][1]);
+    ui->pantallaCronoE1T2->setCurrentText(equipsActuals[1][0]);
+    ui->pantallaCronoE2T2->setCurrentText(equipsActuals[1][1]);
+    equipsActualsCanviats();
+}
+
 void MainWindow::canviEstatBd(EstatBd estat)
 {
     QPalette palette = ui->estatBd->palette();
@@ -196,6 +203,7 @@ void MainWindow::actualitzarDades()
     db->populatePartides(partidesModel);
     db->populateClassificacio(classificacioModel);
     pantallaPuntuacio->setUltimesPartides(db->ultimesPartides());
+    refreshEquipsActuals();
 }
 
 void MainWindow::setAutoUpdate(bool autoUpdate)
@@ -339,4 +347,17 @@ void MainWindow::desconnectaBd()
 {
     resetModels();
     db->desconnecta();
+}
+
+void MainWindow::equipsActualsCanviats()
+{
+    if (ui->pantallaCronoE1T1->currentIndex() != -1)
+        equipsActuals[0][0] = ui->pantallaCronoE1T1->currentText();
+    if (ui->pantallaCronoE2T1->currentIndex() != -1)
+        equipsActuals[0][1] = ui->pantallaCronoE2T1->currentText();
+    if (ui->pantallaCronoE1T2->currentIndex() != -1)
+        equipsActuals[1][0] = ui->pantallaCronoE1T2->currentText();
+    if (ui->pantallaCronoE2T2->currentIndex() != -1)
+        equipsActuals[1][1] = ui->pantallaCronoE2T2->currentText();
+    pantallaCrono->setEquips(equipsActuals);
 }

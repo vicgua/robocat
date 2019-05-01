@@ -48,6 +48,7 @@ private:
     QSqlQueryModel *equipsModel;
     QSqlQueryModel *partidesModel;
     QSqlQueryModel *classificacioModel;
+    QString equipsActuals[2][2];
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
@@ -62,6 +63,7 @@ private:
     void updateChronoButtons(bool running);
     void updateConnectat(bool connectat, bool inicialitzada = true);
     void resetModels();
+    void refreshEquipsActuals();
 
 private slots:
     void canviEstatBd(EstatBd estat);
@@ -79,6 +81,7 @@ private slots:
     void modificarPartida();
     void eliminarPartida();
     void desconnectaBd();
+    void equipsActualsCanviats();
 };
 
 #endif // MAINWINDOW_HH
