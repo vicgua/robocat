@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pantallaCronoCronometre, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setCrono()));
     connect(ui->pantallaCronoTaula1, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula1Enabled(bool)));
     connect(ui->pantallaCronoTaula2, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula2Enabled(bool)));
+    connect(ui->pantallaCronoTaula3, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula3Enabled(bool)));
 
     connect(ui->actionConnectar_a_BD, SIGNAL(triggered()), connectDialog, SLOT(exec()));
     connect(ui->actionTancar_connexio, SIGNAL(triggered()), this, SLOT(desconnectaBd())); // TODO
@@ -52,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pantallaCronoE1T2->setModel(equipsModel);
     ui->pantallaCronoE2T1->setModel(equipsModel);
     ui->pantallaCronoE2T2->setModel(equipsModel);
+    ui->pantallaCronoE1T3->setModel(equipsModel);
+    ui->pantallaCronoE2T3->setModel(equipsModel);
     ui->taulaPartides->setModel(partidesModel);
 
     pantallaPuntuacio->setModel(classificacioModel);
@@ -64,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     equipsActualsCanviats();
     pantallaCrono->setTaula1Enabled(ui->pantallaCronoTaula1->isChecked());
     pantallaCrono->setTaula2Enabled(ui->pantallaCronoTaula2->isChecked());
+    pantallaCrono->setTaula3Enabled(ui->pantallaCronoTaula3->isChecked());
 
     canviEstatBd(NO_CONNECTADA);
 }
@@ -130,6 +134,8 @@ void MainWindow::resetModels()
     ui->pantallaCronoE1T2->setModel(nouEquipsModel);
     ui->pantallaCronoE2T1->setModel(nouEquipsModel);
     ui->pantallaCronoE2T2->setModel(nouEquipsModel);
+    ui->pantallaCronoE1T3->setModel(nouEquipsModel);
+    ui->pantallaCronoE2T3->setModel(nouEquipsModel);
     delete infoEquipsModel;
     delete equipsModel;
     infoEquipsModel = nouInfoEquipsModel;
@@ -142,6 +148,8 @@ void MainWindow::refreshEquipsActuals()
     ui->pantallaCronoE2T1->setCurrentText(equipsActuals[0][1]);
     ui->pantallaCronoE1T2->setCurrentText(equipsActuals[1][0]);
     ui->pantallaCronoE2T2->setCurrentText(equipsActuals[1][1]);
+    ui->pantallaCronoE1T3->setCurrentText(equipsActuals[2][0]);
+    ui->pantallaCronoE2T3->setCurrentText(equipsActuals[2][1]);
     equipsActualsCanviats();
 }
 
@@ -359,5 +367,9 @@ void MainWindow::equipsActualsCanviats()
         equipsActuals[1][0] = ui->pantallaCronoE1T2->currentText();
     if (ui->pantallaCronoE2T2->currentIndex() != -1)
         equipsActuals[1][1] = ui->pantallaCronoE2T2->currentText();
+    if (ui->pantallaCronoE1T3->currentIndex() != -1)
+        equipsActuals[2][0] = ui->pantallaCronoE1T3->currentText();
+    if (ui->pantallaCronoE2T3->currentIndex() != -1)
+        equipsActuals[2][1] = ui->pantallaCronoE2T3->currentText();
     pantallaCrono->setEquips(equipsActuals);
 }

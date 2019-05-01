@@ -32,8 +32,9 @@ public slots:
 
     void setTaula1Enabled(bool enabled);
     void setTaula2Enabled(bool enabled);
+    void setTaula3Enabled(bool enabled);
     void chronoTick(int temps);
-    void setEquips(const QString equips[2][2]);
+    void setEquips(const QString equips[3][2]);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -43,7 +44,7 @@ private:
     Ui::CronoIdle *idleUi;
     Ui::CronoSeguents *seguentsUi;
     Ui::CronoPlaying *playingUi;
-    bool t1Enabled, t2Enabled;
+    bool t1Enabled, t2Enabled, t3Enabled;
     void actualitzarTextSeguents();
 };
 

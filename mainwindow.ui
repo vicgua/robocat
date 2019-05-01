@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>388</height>
+    <width>380</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -275,6 +275,50 @@
          </layout>
         </item>
         <item>
+         <layout class="QHBoxLayout" name="pantallaCronoTaula3Layout">
+          <item>
+           <widget class="QCheckBox" name="pantallaCronoTaula3">
+            <property name="toolTip">
+             <string>Activar taula 2</string>
+            </property>
+            <property name="text">
+             <string>Taula 3</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pantallaCronoE1T3">
+            <property name="toolTip">
+             <string>Equip 1 Taula 2</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="pantallaCronoE2T3">
+            <property name="toolTip">
+             <string>Equip 2 Taula 2</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="ChronoLabel" name="cronometre">
           <property name="font">
            <font>
@@ -352,7 +396,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>521</width>
+     <width>380</width>
      <height>29</height>
     </rect>
    </property>
@@ -480,12 +524,12 @@
    <slot>updateTicks(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
+     <x>379</x>
      <y>35</y>
     </hint>
     <hint type="destinationlabel">
-     <x>101</x>
-     <y>185</y>
+     <x>112</x>
+     <y>324</y>
     </hint>
    </hints>
   </connection>
@@ -496,8 +540,8 @@
    <slot>startChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>334</y>
+     <x>126</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
      <x>94</x>
@@ -512,8 +556,8 @@
    <slot>stopChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>336</x>
-     <y>334</y>
+     <x>242</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
      <x>223</x>
@@ -528,8 +572,8 @@
    <slot>resetChrono()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>499</x>
-     <y>334</y>
+     <x>358</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
      <x>351</x>
@@ -577,11 +621,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>104</x>
-     <y>136</y>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
-     <x>399</x>
-     <y>137</y>
+     <x>258</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -593,11 +637,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>104</x>
-     <y>136</y>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
-     <x>499</x>
-     <y>137</y>
+     <x>358</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -609,11 +653,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>104</x>
-     <y>173</y>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>399</x>
-     <y>173</y>
+     <x>258</x>
+     <y>166</y>
     </hint>
    </hints>
   </connection>
@@ -625,11 +669,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>104</x>
-     <y>173</y>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>499</x>
-     <y>173</y>
+     <x>358</x>
+     <y>166</y>
     </hint>
    </hints>
   </connection>
@@ -640,11 +684,11 @@
    <slot>afegirEquip()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>499</x>
-     <y>141</y>
+     <x>358</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>379</x>
      <y>127</y>
     </hint>
    </hints>
@@ -656,11 +700,11 @@
    <slot>modificarEquip()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>499</x>
-     <y>217</y>
+     <x>358</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>379</x>
      <y>209</y>
     </hint>
    </hints>
@@ -688,11 +732,11 @@
    <slot>eliminarEquip()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>499</x>
-     <y>293</y>
+     <x>358</x>
+     <y>314</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>379</x>
      <y>284</y>
     </hint>
    </hints>
@@ -704,11 +748,11 @@
    <slot>afegirPartida()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>467</x>
-     <y>132</y>
+     <x>358</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
-     <x>514</x>
+     <x>379</x>
      <y>158</y>
     </hint>
    </hints>
@@ -720,11 +764,11 @@
    <slot>modificarPartida()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>476</x>
-     <y>214</y>
+     <x>358</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
-     <x>515</x>
+     <x>379</x>
      <y>238</y>
     </hint>
    </hints>
@@ -736,11 +780,11 @@
    <slot>eliminarPartida()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>495</x>
-     <y>279</y>
+     <x>358</x>
+     <y>314</y>
     </hint>
     <hint type="destinationlabel">
-     <x>517</x>
+     <x>379</x>
      <y>312</y>
     </hint>
    </hints>
@@ -784,8 +828,8 @@
    <slot>equipsActualsCanviats()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>317</x>
-     <y>121</y>
+     <x>258</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>343</x>
@@ -800,11 +844,11 @@
    <slot>equipsActualsCanviats()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>126</y>
+     <x>358</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
-     <x>517</x>
+     <x>379</x>
      <y>44</y>
     </hint>
    </hints>
@@ -816,11 +860,11 @@
    <slot>equipsActualsCanviats()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>370</x>
-     <y>164</y>
+     <x>258</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>379</x>
      <y>197</y>
     </hint>
    </hints>
@@ -832,12 +876,44 @@
    <slot>equipsActualsCanviats()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>462</x>
-     <y>167</y>
+     <x>358</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>515</x>
+     <x>379</x>
      <y>96</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoE1T3</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>equipsActualsCanviats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>193</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>373</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pantallaCronoE2T3</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>equipsActualsCanviats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>323</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>375</x>
+     <y>234</y>
     </hint>
    </hints>
   </connection>

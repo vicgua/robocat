@@ -48,7 +48,7 @@ private:
     QSqlQueryModel *equipsModel;
     QSqlQueryModel *partidesModel;
     QSqlQueryModel *classificacioModel;
-    QString equipsActuals[2][2];
+    QString equipsActuals[3][2];
 
     //! Temps actual del crono (en segons)
     int tempsCrono;
