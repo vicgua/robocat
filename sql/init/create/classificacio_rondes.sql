@@ -1,6 +1,7 @@
 CREATE
     VIEW classificacio_rondes AS SELECT
         e.nom,
+        e.categoria,
         p.ronda,
         COALESCE(SUM(CASE WHEN e.nom = p.equip1 THEN p.punts1 WHEN e.nom = p.equip2 THEN p.punts2 END),
         0) AS punts_cl_ronda,

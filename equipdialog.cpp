@@ -9,11 +9,11 @@ EquipDialog::EquipDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
-EquipDialog::EquipDialog(const QString &originalName, QWidget *parent) :
+EquipDialog::EquipDialog(const QString &nomOriginal, QWidget *parent) :
     EquipDialog(parent)
 {
-    nomOriginal_ = originalName;
-    setNom(originalName);
+    nomOriginal_ = nomOriginal;
+    ui->nom->setText(nomOriginal);
 }
 
 EquipDialog::~EquipDialog()
@@ -21,42 +21,32 @@ EquipDialog::~EquipDialog()
     delete ui;
 }
 
-QString EquipDialog::nom() const
+Equip EquipDialog::equip() const
 {
-    return ui->nom->text();
-}
-
-int EquipDialog::puntsClassificacio() const
-{
-    return ui->puntsClassificacio->value();
-}
-
-int EquipDialog::puntsDesempat() const
-{
-    return ui->puntsDesempat->value();
-}
-
-void EquipDialog::setNom(const QString &nom)
-{
-    ui->nom->setText(nom);
-}
-
-void EquipDialog::setPuntsClassificacio(int puntsClassificacio)
-{
-    ui->puntsClassificacio->setValue(puntsClassificacio);
-}
-
-void EquipDialog::setPuntsDesempat(int puntsDesempat)
-{
-    ui->puntsDesempat->setValue(puntsDesempat);
+    Equip e;
+    e.nom = ui->nom->text();
+    e.categoria = ui->categoria->currentText();
+    e.puntsClassificacio = ui->puntsClassificacio->value();
+    e.puntsDesempat = ui->puntsDesempat->value();
+    return e;
 }
 
 void EquipDialog::queryInfo(RoboDatabase *db)
 {
-    Equip e = db->infoFromEquip(nomOriginal_);
-    setNom(e.nom);
-    setPuntsClassificacio(e.puntsClassificacio);
-    setPuntsDesempat(e.puntsDesempat);
+    setEquip(db->infoFromEquip(nomOriginal_));
+}
+
+void EquipDialog::setEquip(const Equip &e)
+{
+    ui->nom->setText(e.nom);
+    ui->categoria->setCurrentText(e.categoria);
+    ui->puntsClassificacio->setValue(e.puntsClassificacio);
+    ui->puntsDesempat->setValue(e.puntsDesempat);
+}
+
+void EquipDialog::setDefaultCategoria(const QString &categoria)
+{
+    ui->categoria->setCurrentText(categoria);
 }
 
 void EquipDialog::on_buttonBox_accepted()

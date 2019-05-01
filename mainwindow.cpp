@@ -272,8 +272,12 @@ void MainWindow::obrePantallaPuntuacio()
 void MainWindow::afegirEquip()
 {
     EquipDialog dialog(this);
+    if (!defaultCategoria.isEmpty())
+        dialog.setDefaultCategoria(defaultCategoria);
     if (dialog.exec() == QDialog::Accepted) {
-        db->afegirEquip(dialog.nom());
+        Equip e = dialog.equip();
+        defaultCategoria = e.categoria;
+        db->afegirEquip(e);
     }
 }
 
@@ -285,7 +289,7 @@ void MainWindow::modificarEquip()
     EquipDialog dialog(current.at(0).data().toString(), this);
     dialog.queryInfo(db);
     if (dialog.exec() == QDialog::Accepted) {
-        db->modificarEquip(dialog.nomOriginal(), dialog.nom());
+        db->modificarEquip(dialog.nomOriginal(), dialog.equip());
     }
 }
 
@@ -328,7 +332,7 @@ void MainWindow::modificarPartida()
     dialog.setModel(equipsModel);
     dialog.queryInfo(db);
     if (dialog.exec() == QDialog::Accepted) {
-        db->modificarPartida(dialog.partida(), dialog.pkOriginal());
+        db->modificarPartida(dialog.pkOriginal(), dialog.partida());
     }
 }
 

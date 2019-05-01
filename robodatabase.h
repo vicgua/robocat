@@ -45,11 +45,11 @@ public slots:
     void iniciaConnexio();
     void desconnecta();
     void inicialitzar();
-    void afegirEquip(const QString &nomEquip);
-    void modificarEquip(const QString &nomAntic, const QString &nomNou);
+    void afegirEquip(const Equip &equip);
+    void modificarEquip(const QString &nomAntic, const Equip &nouEquip);
     void eliminarEquip(const QString &nomEquip);
     void afegirPartida(const Partida &partida);
-    void modificarPartida(const Partida &novaPartida, const QPair<int, int> &antigaPk);
+    void modificarPartida(const QPair<int, int> &antigaPk, const Partida &novaPartida);
     void eliminarPartida(const QPair<int, int> &pk);
 
 private:

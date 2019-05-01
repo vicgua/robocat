@@ -38,8 +38,9 @@ void RoboDatabase::populateInfoEquips(QSqlQueryModel *model)
     model->clear();
     model->setQuery(query);
     model->setHeaderData(0, Qt::Horizontal, "Nom", Qt::DisplayRole);
-    model->setHeaderData(1, Qt::Horizontal, "Punts de classificació", Qt::DisplayRole);
-    model->setHeaderData(2, Qt::Horizontal, "Punts de desempat", Qt::DisplayRole);
+    model->setHeaderData(1, Qt::Horizontal, "Categoria", Qt::DisplayRole);
+    model->setHeaderData(2, Qt::Horizontal, "Punts de classificació", Qt::DisplayRole);
+    model->setHeaderData(3, Qt::Horizontal, "Punts de desempat", Qt::DisplayRole);
 }
 
 void RoboDatabase::populateEquips(QSqlQueryModel *model)
@@ -92,13 +93,15 @@ void RoboDatabase::populateClassificacio(QSqlQueryModel *model)
     model->setHeaderData(0, Qt::Horizontal, "Equip", Qt::DisplayRole);
     model->setHeaderData(1, Qt::Horizontal, "Punts", Qt::DisplayRole);
     model->setHeaderData(2, Qt::Horizontal, "Desempat", Qt::DisplayRole);
+    model->setHeaderData(3, Qt::Horizontal, "Categoria", Qt::DisplayRole);
 }
 
-void RoboDatabase::afegirEquip(const QString &nomEquip)
+void RoboDatabase::afegirEquip(const Equip &equip)
 {
     QSqlQuery query;
     query.prepare(SentenciesSql::equips::insertEquip);
-    query.bindValue(":nom", nomEquip);
+    query.bindValue(":nom", equip.nom);
+    query.bindValue(":categoria", equip.categoria);
     if (!query.exec()) {
         emit errorSql(query.lastError());
         return;
@@ -106,17 +109,13 @@ void RoboDatabase::afegirEquip(const QString &nomEquip)
     emit dataChanged();
 }
 
-void RoboDatabase::modificarEquip(const QString &nomAntic, const QString &nomNou)
+void RoboDatabase::modificarEquip(const QString &nomAntic, const Equip &nouEquip)
 {
     QSqlQuery query;
     query.prepare(SentenciesSql::equips::updateEquip);
     query.bindValue(":nomAntic", nomAntic);
-    query.bindValue(":nomNou", nomNou);
-    if (!query.exec()) {
-        emit errorSql(query.lastError());
-        return;
-    }
-    emit dataChanged();
+    query.bindValue(":nomNou", nouEquip.nom);
+    query.bindValue(":categoria", nouEquip.categoria);
 }
 
 void RoboDatabase::eliminarEquip(const QString &nomEquip)
@@ -159,7 +158,7 @@ void RoboDatabase::afegirPartida(const Partida &partida)
     emit dataChanged();
 }
 
-void RoboDatabase::modificarPartida(const Partida &novaPartida, const QPair<int, int> &antigaPk)
+void RoboDatabase::modificarPartida(const QPair<int, int> &antigaPk, const Partida &novaPartida)
 {
     QSqlQuery query;
     query.prepare(SentenciesSql::partides::updatePartida);

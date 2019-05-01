@@ -29,14 +29,14 @@
      <item row="0" column="1">
       <widget class="QLineEdit" name="nom"/>
      </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="puntsClassificacioLabel">
        <property name="text">
         <string>Punts classificació</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="2" column="1">
       <widget class="QSpinBox" name="puntsClassificacio">
        <property name="frame">
         <bool>false</bool>
@@ -52,14 +52,14 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="puntsDesempatLabel">
        <property name="text">
         <string>Punts desempat</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <widget class="QSpinBox" name="puntsDesempat">
        <property name="frame">
         <bool>false</bool>
@@ -73,6 +73,35 @@
        <property name="suffix">
         <string> punts</string>
        </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="categoriaLabel">
+       <property name="text">
+        <string>Categoria</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="categoria">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>Júnior</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sènior</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Adults</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -89,6 +118,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>nom</tabstop>
+  <tabstop>categoria</tabstop>
+  <tabstop>puntsClassificacio</tabstop>
+  <tabstop>puntsDesempat</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -98,8 +133,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>261</x>
-     <y>155</y>
+     <x>270</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
