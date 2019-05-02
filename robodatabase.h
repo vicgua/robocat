@@ -34,6 +34,8 @@ public:
     QPair<int, int> properaPartida();
     QVector<Partida> ultimesPartides();
 
+    QMap<QString, int> categories();
+
 signals:
     void errorSql(const QSqlError &error);
     void connexioFinalitzada(bool exitosa);

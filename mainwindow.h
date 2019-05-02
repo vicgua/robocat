@@ -73,6 +73,7 @@ private slots:
     void gestionarFiConnexio(bool exitosa);
     void errorSql(const QSqlError &error);
     void obreDialegInicialitzacio();
+    void obreDialegClassificats();
     void obrePantallaCrono();
     void obrePantallaPuntuacio();
     void afegirEquip();

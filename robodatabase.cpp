@@ -297,6 +297,20 @@ QVector<Partida> RoboDatabase::ultimesPartides()
     return partides;
 }
 
+QMap<QString, int> RoboDatabase::categories()
+{
+    QSqlQuery query;
+    QMap<QString, int> cats;
+    if (!query.exec(SentenciesSql::equips::selectCategories)) {
+        emit errorSql(query.lastError());
+        return cats;
+    }
+    while (query.next()) {
+        cats[query.value(0).toString()] = query.value(1).toInt();
+    }
+    return cats;
+}
+
 void RoboDatabase::inicialitzar()
 {
     QSqlError error;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>558</width>
-    <height>595</height>
+    <height>647</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,7 +45,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSpinBox" name="partida"/>
+       <widget class="QSpinBox" name="partida">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -128,6 +132,9 @@
          <font>
           <underline>true</underline>
          </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>WhatsThisCursor</cursorShape>
         </property>
         <property name="toolTip">
          <string>Si no es marca, la partida es considerarà invàlida (0 punts i derrota automàtica)</string>
@@ -228,6 +235,9 @@
          <font>
           <underline>true</underline>
          </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>WhatsThisCursor</cursorShape>
         </property>
         <property name="toolTip">
          <string>Si no es marca, la partida es considerarà invàlida (0 punts i derrota automàtica)</string>

@@ -421,8 +421,15 @@
     <addaction name="actionPuntuacio"/>
     <addaction name="actionCronometre"/>
    </widget>
+   <widget class="QMenu" name="menuInformacio">
+    <property name="title">
+     <string>&amp;Informació</string>
+    </property>
+    <addaction name="action_Classificats"/>
+   </widget>
    <addaction name="menuArxiu"/>
    <addaction name="menuPantalles"/>
+   <addaction name="menuInformacio"/>
   </widget>
   <action name="actionSortir">
    <property name="text">
@@ -483,6 +490,11 @@
    </property>
    <property name="text">
     <string>Act&amp;ualitzar cada 30 segons</string>
+   </property>
+  </action>
+  <action name="action_Classificats">
+   <property name="text">
+    <string>&amp;Classificats</string>
    </property>
   </action>
  </widget>
@@ -917,6 +929,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Classificats</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>obreDialegClassificats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>chronoTicked(int)</signal>
@@ -935,6 +963,7 @@
   <slot>setAutoUpdate(bool)</slot>
   <slot>obrePantallaPuntuacio()</slot>
   <slot>equipsActualsCanviats()</slot>
+  <slot>obreDialegClassificats()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="estatPantallaCronoBg"/>

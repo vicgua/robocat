@@ -5,6 +5,7 @@
 #include <QColor>
 #include "equipdialog.h"
 #include "partidadialog.h"
+#include "classificatsdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -118,11 +119,12 @@ void MainWindow::updateChronoButtons(bool running)
 void MainWindow::updateConnectat(bool connectat, bool inicialitzada)
 {
     ui->tabWidget->setEnabled(connectat && inicialitzada);
-    ui->actionTancar_connexio->setEnabled(connectat && false); // No funciona (bug #1)
+    ui->actionTancar_connexio->setEnabled(connectat && false); // No funciona (issue #1)
     ui->actionInicialitzar_BD->setEnabled(connectat);
     ui->actionActualitzar_BD->setEnabled(connectat && inicialitzada);
     ui->actionAutoactualitzar->setEnabled(connectat && inicialitzada);
     ui->menuPantalles->setEnabled(connectat && inicialitzada);
+    ui->menuInformacio->setEnabled(connectat && inicialitzada);
 }
 
 void MainWindow::resetModels()
@@ -256,6 +258,17 @@ void MainWindow::obreDialegInicialitzacio()
     preguntaDialog.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     if (preguntaDialog.exec() == QMessageBox::Yes) {
         db->inicialitzar();
+    }
+}
+
+#include <QDebug>
+
+void MainWindow::obreDialegClassificats()
+{
+    ClassificatsDialog dialog(this);
+    dialog.setCategories(db->categories());
+    if (dialog.exec() == QDialog::Accepted) {
+        qDebug() << dialog.numClassificats();
     }
 }
 
