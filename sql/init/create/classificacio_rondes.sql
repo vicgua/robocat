@@ -14,4 +14,5 @@ CREATE
         OR e.nom = p.equip2)
     GROUP BY
         e.nom,
+        e.categoria,
         p.ronda;

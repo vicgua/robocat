@@ -7,4 +7,5 @@ CREATE
     FROM
         classificacio_rondes
     GROUP BY
-        nom;
+        nom,
+        categoria;
