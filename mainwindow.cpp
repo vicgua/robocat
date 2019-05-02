@@ -6,6 +6,7 @@
 #include "equipdialog.h"
 #include "partidadialog.h"
 #include "classificatsdialog.h"
+#include "infoclassificats.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -261,14 +262,20 @@ void MainWindow::obreDialegInicialitzacio()
     }
 }
 
-#include <QDebug>
-
 void MainWindow::obreDialegClassificats()
 {
     ClassificatsDialog dialog(this);
     dialog.setCategories(db->categories());
     if (dialog.exec() == QDialog::Accepted) {
-        qDebug() << dialog.numClassificats();
+        InfoClassificats infoWidget(this);
+        QMap<QString, int> n_classificats = dialog.numClassificats();
+        QMapIterator<QString, int> it(n_classificats);
+        while (it.hasNext()) {
+            it.next();
+            infoWidget.afegirCategoria(it.key(),
+                                       db->classificatsCategoria(it.key(), it.value()));
+        }
+        infoWidget.exec();
     }
 }
 

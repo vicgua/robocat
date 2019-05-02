@@ -29,12 +29,13 @@ public:
     void populatePartides(QSqlQueryModel *model);
     void populateClassificacio(QSqlQueryModel *model);
     bool estaInicialitzada();
-    Equip infoFromEquip(QString nomEquip);
+    Equip infoFromEquip(const QString &nomEquip);
     Partida infoFromPartida(const QPair<int, int> &pkPartida);
     QPair<int, int> properaPartida();
     QVector<Partida> ultimesPartides();
 
     QMap<QString, int> categories();
+    QVector<Equip> classificatsCategoria(const QString &categoria, int num);
 
 signals:
     void errorSql(const QSqlError &error);

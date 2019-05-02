@@ -36,7 +36,8 @@ SOURCES += \
     partidadialog.cpp \
     pantallapuntuacio.cpp \
     pantallacrono.cpp \
-    classificatsdialog.cpp
+    classificatsdialog.cpp \
+    infoclassificats.cpp
 
 HEADERS += \
     connectdialog.h \
@@ -53,7 +54,8 @@ HEADERS += \
     pantallapuntuacio.h \
     data_objects/equip.h \
     pantallacrono.h \
-    classificatsdialog.h
+    classificatsdialog.h \
+    infoclassificats.h
 
 FORMS += \
         mainwindow.ui \
@@ -63,7 +65,8 @@ FORMS += \
     pantalles_crono/cronoplaying.ui \
     equipdialog.ui \
     partidadialog.ui \
-    pantallapuntuacio.ui
+    pantallapuntuacio.ui \
+    classificatsinfo_esquema.ui
 
 RESOURCES += \
     resources.qrc \

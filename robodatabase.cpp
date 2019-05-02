@@ -208,7 +208,7 @@ bool RoboDatabase::estaInicialitzada()
     return tables.contains("equips") && tables.contains("partides");
 }
 
-Equip RoboDatabase::infoFromEquip(QString nomEquip)
+Equip RoboDatabase::infoFromEquip(const QString &nomEquip)
 {
     Equip e;
     e.nom = nomEquip;
@@ -309,6 +309,29 @@ QMap<QString, int> RoboDatabase::categories()
         cats[query.value(0).toString()] = query.value(1).toInt();
     }
     return cats;
+}
+
+QVector<Equip> RoboDatabase::classificatsCategoria(const QString &categoria, int num)
+{
+    QSqlQuery query;
+    QVector<Equip> classificats;
+    query.prepare(SentenciesSql::equips::selectClassificatsCat);
+    query.bindValue(":categoria", categoria);
+    query.bindValue(":num", num);
+    if (!query.exec()) {
+        emit errorSql(query.lastError());
+        return classificats;
+    }
+    classificats.reserve(num);
+    while (query.next()) {
+        Equip e;
+        e.nom = query.value(0).toString();
+        e.categoria = categoria;
+        e.puntsClassificacio = query.value(1).toInt();
+        e.puntsDesempat = query.value(2).toInt();
+        classificats.append(e);
+    }
+    return classificats;
 }
 
 void RoboDatabase::inicialitzar()

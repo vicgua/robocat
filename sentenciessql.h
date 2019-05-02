@@ -77,10 +77,6 @@ constexpr SqlSentence deleteEquip = "DELETE\n"
                                     "WHERE\n"
                                     "    nom = :nom;\n";
 
-/*constexpr SqlSentence selectCategories = "SELECT\n"
-                                         "    DISTINCT categoria\n"
-                                         "FROM\n"
-                                         "    equips;\n";*/
 constexpr SqlSentence selectCategories = "SELECT\n"
                                          "    categoria,\n"
                                          "    COUNT(*) AS num_equips\n"
@@ -88,6 +84,19 @@ constexpr SqlSentence selectCategories = "SELECT\n"
                                          "    equips\n"
                                          "GROUP BY\n"
                                          "    categoria;\n";
+constexpr SqlSentence selectClassificatsCat =
+        "SELECT\n"
+        "    nom,\n"
+        "    punts_classificacio_totals,\n"
+        "    punts_desempat_totals\n"
+        "FROM\n"
+        "    classificacio_equips\n"
+        "WHERE\n"
+        "    categoria = :categoria\n"
+        "ORDER BY\n"
+        "    punts_classificacio_totals DESC,\n"
+        "    punts_desempat_totals DESC\n"
+        "LIMIT :num;\n";
 }
 
 namespace partides {
