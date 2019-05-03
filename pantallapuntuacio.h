@@ -6,6 +6,7 @@
 #include <QVector>
 #include <QKeyEvent>
 #include <QAbstractItemModel>
+#include <QTimer>
 #include "partidadialog.h"
 
 namespace Ui {
@@ -23,6 +24,7 @@ public:
 public slots:
     void setUltimesPartides(const QVector<Partida> &ultimesPartides);
     void setModel(QAbstractItemModel* model);
+    void dadesActualitzades();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -43,10 +45,15 @@ private:
     Ui::PantallaPuntuacio *ui;
     QVector<Partida> ultimesPartides;
     PartidaWidgetGroup ultimesWidgets[4];
+    QTimer *scrollTimer;
+    int scrollPoint;
 
     void updatePartides();
     void setPartida(PartidaWidgetGroup &group, const Partida &partida);
     void desactivarTot();
+
+private slots:
+    void updateScroll();
 };
 
 #endif // PANTALLAPUNTUACIO_H

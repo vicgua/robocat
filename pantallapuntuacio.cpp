@@ -1,10 +1,16 @@
 #include "pantallapuntuacio.h"
 #include "ui_pantallapuntuacio.h"
+#include "constants.h"
 #include <QFont>
+#include <QScrollBar>
+
+#include <QDebug>
 
 PantallaPuntuacio::PantallaPuntuacio(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::PantallaPuntuacio)
+    ui(new Ui::PantallaPuntuacio),
+    scrollTimer(new QTimer),
+    scrollPoint(0)
 {
     ui->setupUi(this);
 
@@ -29,11 +35,16 @@ PantallaPuntuacio::PantallaPuntuacio(QWidget *parent) :
                 ui->equip41, ui->taps41, ui->bandera41, ui->punts41,
                 ui->equip42, ui->taps42, ui->bandera42, ui->punts42
                 );
+    scrollTimer->start(constants::AUTOSCROLL_REFRESH_TIME);
+    qDebug() << "Timer" << scrollTimer->interval();
+    qDebug() << "AUTOSCROLL_REFRESH_TIME" << constants::AUTOSCROLL_REFRESH_TIME;
+    connect(scrollTimer, &QTimer::timeout, this, &PantallaPuntuacio::updateScroll);
 }
 
 PantallaPuntuacio::~PantallaPuntuacio()
 {
     delete ui;
+    delete scrollTimer;
 }
 
 void PantallaPuntuacio::setUltimesPartides(const QVector<Partida> &ultimesPartides)
@@ -45,6 +56,16 @@ void PantallaPuntuacio::setUltimesPartides(const QVector<Partida> &ultimesPartid
 void PantallaPuntuacio::setModel(QAbstractItemModel *model)
 {
     ui->taulaClassificacio->setModel(model);
+}
+
+void PantallaPuntuacio::dadesActualitzades()
+{
+    ui->taulaClassificacio->resizeColumnsToContents();
+    ui->taulaClassificacio->resizeRowsToContents();
+    int width = ui->taulaClassificacio->verticalHeader()->width();
+    width += ui->taulaClassificacio->verticalScrollBar()->width();
+    width += ui->taulaClassificacio->horizontalHeader()->length();
+    ui->taulaClassificacio->setMinimumWidth(width);
 }
 
 void PantallaPuntuacio::keyPressEvent(QKeyEvent *event)
@@ -121,4 +142,17 @@ void PantallaPuntuacio::desactivarTot()
         wg.bandera2->hide();
         wg.punts2->hide();
     }
+}
+
+namespace {
+int calcularPos(int point, int min, int max) {
+    return min + ((max - min) * point) / constants::AUTOSCROLL_MAX;
+}
+}
+
+void PantallaPuntuacio::updateScroll()
+{
+    QScrollBar *bar = ui->taulaClassificacio->verticalScrollBar();
+    bar->setSliderPosition(calcularPos(scrollPoint, bar->minimum(), bar->maximum()));
+    if (++scrollPoint > constants::AUTOSCROLL_MAX) scrollPoint = 0;
 }

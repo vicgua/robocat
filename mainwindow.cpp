@@ -215,6 +215,7 @@ void MainWindow::actualitzarDades()
     db->populateClassificacio(classificacioModel);
     pantallaPuntuacio->setUltimesPartides(db->ultimesPartides());
     refreshEquipsActuals();
+    pantallaPuntuacio->dadesActualitzades();
 }
 
 void MainWindow::setAutoUpdate(bool autoUpdate)

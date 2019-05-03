@@ -64,7 +64,6 @@ private:
     void updateChronoButtons(bool running);
     void updateConnectat(bool connectat, bool inicialitzada = true);
     void resetModels();
-    void refreshEquipsActuals();
 
 private slots:
     void canviEstatBd(EstatBd estat);
@@ -84,6 +83,7 @@ private slots:
     void eliminarPartida();
     void desconnectaBd();
     void equipsActualsCanviats();
+    void refreshEquipsActuals();
 };
 
 #endif // MAINWINDOW_HH
