@@ -25,6 +25,7 @@ public slots:
     void setUltimesPartides(const QVector<Partida> &ultimesPartides);
     void setModel(QAbstractItemModel* model);
     void dadesActualitzades();
+    void mostrarClassificacio(bool mostrar);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

@@ -68,6 +68,12 @@ void PantallaPuntuacio::dadesActualitzades()
     ui->taulaClassificacio->setMinimumWidth(width);
 }
 
+void PantallaPuntuacio::mostrarClassificacio(bool mostrar)
+{
+    ui->classificacioHeader->setVisible(mostrar);
+    ui->taulaClassificacio->setVisible(mostrar);
+}
+
 void PantallaPuntuacio::keyPressEvent(QKeyEvent *event)
 {
     event->accept();

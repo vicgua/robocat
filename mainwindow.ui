@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
+    <width>382</width>
     <height>413</height>
    </rect>
   </property>
@@ -25,7 +25,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabEquips">
        <attribute name="title">
@@ -91,51 +91,65 @@
        <attribute name="title">
         <string>&amp;Partides</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QTableView" name="taulaPartides">
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
+         <widget class="QCheckBox" name="mostrarClassificacioCheckBox">
+          <property name="text">
+           <string>Mostrar classificació a la pantalla</string>
           </property>
-          <property name="alternatingRowColors">
+          <property name="checked">
            <bool>true</bool>
           </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
-          </property>
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="layoutPartides">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="afegirPartides">
-            <property name="text">
-             <string>&amp;Afegir</string>
+           <widget class="QTableView" name="taulaPartides">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
             </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="editarPartides">
-            <property name="text">
-             <string>&amp;Editar</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="eliminarPartides">
-            <property name="text">
-             <string>Eliminar</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="layoutPartides">
+            <item>
+             <widget class="QPushButton" name="afegirPartides">
+              <property name="text">
+               <string>&amp;Afegir</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="editarPartides">
+              <property name="text">
+               <string>&amp;Editar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="eliminarPartides">
+              <property name="text">
+               <string>Eliminar</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -396,7 +410,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>380</width>
+     <width>382</width>
      <height>29</height>
     </rect>
    </property>

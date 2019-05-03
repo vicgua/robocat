@@ -35,9 +35,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pantallaCronoIdle, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setIdle()));
     connect(ui->pantallaCronoSeguents, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setSeguents()));
     connect(ui->pantallaCronoCronometre, SIGNAL(clicked(bool)), pantallaCrono, SLOT(setCrono()));
-    connect(ui->pantallaCronoTaula1, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula1Enabled(bool)));
-    connect(ui->pantallaCronoTaula2, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula2Enabled(bool)));
-    connect(ui->pantallaCronoTaula3, SIGNAL(toggled(bool)), pantallaCrono, SLOT(setTaula3Enabled(bool)));
+    connect(ui->pantallaCronoTaula1, SIGNAL(toggled(bool)),
+            pantallaCrono, SLOT(setTaula1Enabled(bool)));
+    connect(ui->pantallaCronoTaula2, SIGNAL(toggled(bool)),
+            pantallaCrono, SLOT(setTaula2Enabled(bool)));
+    connect(ui->pantallaCronoTaula3, SIGNAL(toggled(bool)),
+            pantallaCrono, SLOT(setTaula3Enabled(bool)));
+
+    connect(ui->mostrarClassificacioCheckBox, SIGNAL(toggled(bool)),
+            pantallaPuntuacio, SLOT(mostrarClassificacio(bool)));
 
     connect(ui->actionConnectar_a_BD, SIGNAL(triggered()), connectDialog, SLOT(exec()));
     connect(ui->actionTancar_connexio, SIGNAL(triggered()), this, SLOT(desconnectaBd())); // TODO
