@@ -65,8 +65,7 @@ FORMS += \
     pantalles_crono/cronoplaying.ui \
     equipdialog.ui \
     partidadialog.ui \
-    pantallapuntuacio.ui \
-    classificatsinfo_esquema.ui
+    pantallapuntuacio.ui
 
 RESOURCES += \
     resources.qrc \
