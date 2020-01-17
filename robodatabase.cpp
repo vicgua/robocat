@@ -315,7 +315,7 @@ QVector<Equip> RoboDatabase::classificatsCategoria(const QString &categoria, int
 {
     QSqlQuery query;
     QVector<Equip> classificats;
-    query.prepare(SentenciesSql::equips::selectClassificatsCat);
+    query.prepare(SentenciesSql::partides::selectClassificatsCat);
     query.bindValue(":categoria", categoria);
     query.bindValue(":num", num);
     if (!query.exec()) {
@@ -332,6 +332,77 @@ QVector<Equip> RoboDatabase::classificatsCategoria(const QString &categoria, int
         classificats.append(e);
     }
     return classificats;
+}
+
+QStringList RoboDatabase::exportarCategories()
+{
+    QSqlQuery query;
+    QStringList cats;
+    if (!query.exec(SentenciesSql::equips::selectCategoriesNoCount)) {
+        emit errorSql(query.lastError());
+        return cats;
+    }
+    while (query.next()) {
+        cats.append(query.value(0).toString());
+    }
+    return cats;
+}
+
+QMap<QString, QVector<Equip> > RoboDatabase::exportarClassificacio(const QStringList &categories)
+{
+    QSqlQuery query;
+    QMap<QString, QVector<Equip>> classificacio;
+    query.prepare(SentenciesSql::partides::selectClassificatsCatNoLimit);
+    foreach (QString cat, categories) {
+        query.bindValue(":categoria", cat);
+        if (!query.exec()) {
+            emit errorSql(query.lastError());
+            return QMap<QString, QVector<Equip>>();
+        }
+        QVector<Equip> equips;
+        while (query.next()) {
+            Equip e;
+            e.nom = query.value(0).toString();
+            e.categoria = cat;
+            e.puntsClassificacio = query.value(1).toInt();
+            e.puntsDesempat = query.value(2).toInt();
+            equips.append(e);
+        }
+        classificacio[cat] = equips;
+    }
+    return classificacio;
+}
+
+QVector<Partida> RoboDatabase::exportarPartides()
+{
+    QSqlQuery query;
+    QVector<Partida> partides;
+    if (!query.exec(SentenciesSql::partides::selectPartides)) {
+        emit errorSql(query.lastError());
+        return partides;
+    }
+    if (query.size() != -1)
+        partides.reserve(query.size());
+    while (query.next()) {
+        Partida p;
+        p.ronda = query.value(0).toInt();
+        p.partida = query.value(1).toInt();
+        p.equip1 = query.value(2).toString();
+        p.equip2 = query.value(3).toString();
+        p.taps1 = query.value(4).toInt();
+        p.taps2 = query.value(5).toInt();
+        p.bandera1 = query.value(6).toBool();
+        p.bandera2 = query.value(7).toBool();
+        p.valid1 = query.value(8).toBool();
+        p.valid2 = query.value(9).toBool();
+        p.extra1 = query.value(10).toInt();
+        p.extra2 = query.value(11).toInt();
+        // 12 => total -- ignorar
+        // 13 => total -- ignorar
+        p.notes = query.value(14).toInt();
+        partides.append(p);
+    }
+    return partides;
 }
 
 void RoboDatabase::inicialitzar()

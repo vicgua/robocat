@@ -74,19 +74,11 @@ constexpr SqlSentence selectCategories = "SELECT\n"
                                          "    equips\n"
                                          "GROUP BY\n"
                                          "    categoria;\n";
-constexpr SqlSentence selectClassificatsCat =
+constexpr SqlSentence selectCategoriesNoCount =
         "SELECT\n"
-        "    nom,\n"
-        "    punts_classificacio_totals,\n"
-        "    punts_desempat_totals\n"
+        "    DISTINCT categoria\n"
         "FROM\n"
-        "    classificacio_equips\n"
-        "WHERE\n"
-        "    categoria = :categoria\n"
-        "ORDER BY\n"
-        "    punts_classificacio_totals DESC,\n"
-        "    punts_desempat_totals DESC\n"
-        "LIMIT :num;\n";
+        "    equips;\n";
 }
 
 namespace partides {
@@ -236,6 +228,32 @@ constexpr SqlSentence selectClassificacio = "SELECT\n"
                                             "    punts_classificacio_totals DESC,\n"
                                             "    punts_desempat_totals DESC,\n"
                                             "    nom ASC;\n";
+constexpr SqlSentence selectClassificatsCat =
+        "SELECT\n"
+        "    nom,\n"
+        "    punts_classificacio_totals,\n"
+        "    punts_desempat_totals\n"
+        "FROM\n"
+        "    classificacio_equips\n"
+        "WHERE\n"
+        "    categoria = :categoria\n"
+        "ORDER BY\n"
+        "    punts_classificacio_totals DESC,\n"
+        "    punts_desempat_totals DESC\n"
+        "LIMIT :num;\n";
+
+constexpr SqlSentence selectClassificatsCatNoLimit =
+        "SELECT\n"
+        "    nom,\n"
+        "    punts_classificacio_totals,\n"
+        "    punts_desempat_totals\n"
+        "FROM\n"
+        "    classificacio_equips\n"
+        "WHERE\n"
+        "    categoria = :categoria\n"
+        "ORDER BY\n"
+        "    punts_classificacio_totals DESC,\n"
+        "    punts_desempat_totals DESC;\n";
 }
 
 QString getSql(SqlPtr ptr);

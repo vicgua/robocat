@@ -37,6 +37,10 @@ public:
     QMap<QString, int> categories();
     QVector<Equip> classificatsCategoria(const QString &categoria, int num);
 
+    QStringList exportarCategories();
+    QMap<QString, QVector<Equip>> exportarClassificacio(const QStringList &categories);
+    QVector<Partida> exportarPartides();
+
 signals:
     void errorSql(const QSqlError &error);
     void connexioFinalitzada(bool exitosa);

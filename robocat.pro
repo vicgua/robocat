@@ -37,7 +37,8 @@ SOURCES += \
     pantallapuntuacio.cpp \
     pantallacrono.cpp \
     classificatsdialog.cpp \
-    infoclassificats.cpp
+    infoclassificats.cpp \
+    exportador.cpp
 
 HEADERS += \
     connectdialog.h \
@@ -55,7 +56,8 @@ HEADERS += \
     data_objects/equip.h \
     pantallacrono.h \
     classificatsdialog.h \
-    infoclassificats.h
+    infoclassificats.h \
+    exportador.h
 
 FORMS += \
         mainwindow.ui \
